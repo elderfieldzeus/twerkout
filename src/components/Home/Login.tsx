@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = ({className, changeForm}) => {
 
             <Inline>
                 <p>Don't have an account?</p>
-                <button onClick={changeForm} className="text-yellow-500 underline active:bg-yellow-500">Sign up.</button>
+                <button onClick={changeForm} className="text-yellow-500 underline active:text-yellow-500">Sign up.</button>
             </Inline>
         </div>
     )
