@@ -6,7 +6,7 @@ import './styles/input.css';
 
 function App() {
   return (
-    <div>
+    <div className='bg-yellow-400'>
       <BrowserRouter>
         <Suspense fallback = {<div>Loading...</div>}>
           <Routes>
