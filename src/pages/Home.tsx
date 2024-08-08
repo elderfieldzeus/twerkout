@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     return (
         <div className={`${active ? "justify-between pt-2" : "justify-center"} min-h-screen flex flex-col items-center bg-yellow-400 relative`}>
             <div className="transition-all">
-                <Logo className="size-28"/>
+                <Logo className="size-28 select-none"/>
                 <p className="font-coffee text-2xl">Twerk-out!</p>
             </div>
             <Form active = {active}/>
