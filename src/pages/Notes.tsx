@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import Main from '../components/Main';
 
-interface GymProps {
+interface NotesProps {
     setColor: () => void;
 }
 
-const Gym: React.FC<GymProps> = ({setColor}) => {
+const Notes: React.FC<NotesProps> = ({setColor}) => {
     useEffect(() => {
         setColor();
     }, [])
 
   return (
-    <Main header='Workout'>
+    <Main header='Notes'>
 
     </Main>
   )
 }
 
-export default Gym
+export default Notes

@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import Main from '../components/Main';
 
-interface GymProps {
+interface SplitProps {
     setColor: () => void;
 }
 
-const Gym: React.FC<GymProps> = ({setColor}) => {
+const Split: React.FC<SplitProps> = ({setColor}) => {
     useEffect(() => {
         setColor();
     }, [])
 
   return (
-    <Main header='Workout'>
+    <Main header='Split'>
 
     </Main>
   )
 }
 
-export default Gym
+export default Split
