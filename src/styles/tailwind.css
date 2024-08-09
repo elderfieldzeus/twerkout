@@ -847,6 +847,11 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
 .pt-10 {
   padding-top: 2.5rem;
 }
@@ -873,6 +878,10 @@ video {
 
 .pb-20 {
   padding-bottom: 5rem;
+}
+
+.pb-52 {
+  padding-bottom: 13rem;
 }
 
 .font-coffee {
