@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../components/Logo";
-import Form from "../components/Home/Form";
+import Form from "../components/Landing/Form";
 
-interface HomeProps {
+interface LandingProps {
     setColor: () => void;
 }
 
-const Home: React.FC<HomeProps> = ({setColor}) => {
+const Landing: React.FC<LandingProps> = ({setColor}) => {
     const [active, setActive] = useState<boolean>(false);
 
     useEffect(() => {
         setColor();
         setTimeout(() => {
             setActive(true);
-        }, 2000);
+        }, 1500);
     }, [setColor]);
 
     return (
@@ -27,4 +27,4 @@ const Home: React.FC<HomeProps> = ({setColor}) => {
     );
 }
 
-export default Home;
+export default Landing;

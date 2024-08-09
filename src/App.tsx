@@ -1,13 +1,14 @@
 import { Suspense, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
-import Home from './pages/Home';
 import './styles/tailwind.css';
 import './styles/input.css';
+import Landing from './pages/Landing';
 import Gym from './pages/Gym';
 import Split from './pages/Split';
 import Progress from './pages/Progress';
 import Notes from './pages/Notes';
 import Profile from './pages/Profile';
+
 
 function App() {
   const [white, setWhite] = useState<boolean>(true);
@@ -29,7 +30,7 @@ function App() {
       <BrowserRouter>
         <Suspense fallback = {<div>Loading...</div>}>
           <Routes>
-            <Route path='/' element={<Home setColor = {setToYellow}/>}/>
+            <Route path='/' element={<Landing setColor = {setToYellow}/>}/>
             <Route path='/gym' element={<Gym setColor = {setToWhite}/>}/>
             <Route path='/split' element={<Split setColor = {setToWhite}/>}/>
             <Route path='/progress' element={<Progress setColor = {setToWhite}/>}/>
