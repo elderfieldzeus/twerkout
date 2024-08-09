@@ -10,7 +10,7 @@ interface InputProps {
 
 const Input: React.FC<InputProps> = ({type = 'text', placeholder, value, handleOnChange, required = false}) => {
   return (
-    <input type={type} className='w-full h-12 rounded-lg bg-gray-100 px-4 focus:ring-yellow-400' placeholder = {placeholder} value={value} onChange = {handleOnChange} required = {required}/>
+    <input type={type} className='w-full h-12 rounded-lg bg-gray-100 px-4 focus:outline-yellow-400' placeholder = {placeholder} value={value} onChange = {handleOnChange} required = {required}/>
   )
 }
 
