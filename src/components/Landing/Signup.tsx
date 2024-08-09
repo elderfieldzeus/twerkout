@@ -3,6 +3,8 @@ import Inline from "../Inline";
 import Button from "../Button";
 import Input from "../Input";
 import { useNavigate } from "react-router-dom";
+import { signup } from "../../utilities/auth";
+import Error from "../Error";
 
 interface SignupProps {
     className: string;
@@ -10,18 +12,15 @@ interface SignupProps {
 }
 
 const Signup: React.FC<SignupProps> = ({className, changeForm}) => {
+    const [loading, setLoading] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
-    const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [cpassword, setCPassword] = useState<string>('');
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const handleChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setEmail(e.target.value);
-    }
-
-    const handleChangeUsername: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setUsername(e.target.value);
     }
 
     const handleChangePassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -33,22 +32,51 @@ const Signup: React.FC<SignupProps> = ({className, changeForm}) => {
     }
 
     const handleSignUp: React.MouseEventHandler<HTMLButtonElement> = () => {
-        navigate('/gym');
+        setError(null);
+
+        if(!email || !password || !cpassword) {
+            setError('All fields are required.');
+            return;
+        }
+
+        if(password !== cpassword) {
+            setError('Passwords do not match.');
+            return;
+        }
+
+        setLoading(true);
+
+        async function signupProcess() {
+            const res = await signup(email, password);
+
+            if(res.status === true) {
+                setError(null);
+                navigate('/gym');
+            }
+            else {
+                if(res.message !== undefined) {
+                    setError(res.message);
+                }
+            }
+            setLoading(false);
+        } 
+
+        signupProcess();
     }
 
     return (
         <div className = {className}>
             <p className="font-coffee text-4xl mb-5">Hey, stranger!</p>
 
-            <Input type="email" placeholder="Email" value = {email} handleOnChange={handleChangeEmail} required = {true}/>
+            {error !== null && <Error message = {error} />}
 
-            <Input placeholder="Username" value = {username} handleOnChange={handleChangeUsername} required = {true}/>
+            <Input type="email" placeholder="Email" value = {email} handleOnChange={handleChangeEmail} required = {true}/>
 
             <Input type="password" placeholder="Password" value = {password} handleOnChange={handleChangePassword} required = {true}/>
 
             <Input type="password" placeholder="Confirm Password" value = {cpassword} handleOnChange={handleChangeCPassword} required = {true}/>
 
-            <Button handleOnClick={handleSignUp}>Sign up!</Button>
+            <Button handleOnClick={handleSignUp} loading = {loading}>Sign up!</Button>
 
             <Inline>
                 <p>Have an account?</p>

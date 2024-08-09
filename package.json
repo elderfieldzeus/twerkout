@@ -11,6 +11,7 @@
     "tailwind": "tailwindcss -i ./src/styles/input.css -o ./src/styles/tailwind.css --watch"
   },
   "dependencies": {
+    "firebase": "^10.12.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Inline from "../Inline";
 import Button from "../Button";
 import Input from "../Input";
+import { signinEmail } from "../../utilities/auth";
+import Error from "../Error";
+import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
     className: string;
@@ -9,25 +12,58 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({className, changeForm}) => {
-    const [username, setUsername] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const navigate = useNavigate();
 
-    const handleChangeUsername: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setUsername(e.target.value);
+    const handleChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        setEmail(e.target.value);
     }
 
     const handleChangePassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setPassword(e.target.value);
     }
 
+    const handleLogin: React.MouseEventHandler<HTMLButtonElement> = () => {
+        setError(null);
+
+        if(!email || !password) {
+            setError('All fields are required.');
+            return;
+        }
+
+        setLoading(true);
+
+        async function signinProcess() {
+            const res = await signinEmail(email, password);
+
+            if(res.status === true) {
+                setError(null);
+                navigate('/gym');
+            }
+            else {
+                if(res.message !== undefined) {
+                    setError(res.message);
+                }
+            }
+            setLoading(false);
+        } 
+
+        signinProcess();
+    }
+
     return (
         <div className = {className}>
             <p className="font-coffee text-4xl mb-5">Welcome, back!</p>
 
-            <Input placeholder="Username" value = {username} handleOnChange={handleChangeUsername} required = {true}/>
+            {error !== null && <Error message={error} />}
+
+            <Input type="email" placeholder="Email" value = {email} handleOnChange={handleChangeEmail} required = {true}/>
             <Input type="password" placeholder="Password" value = {password} handleOnChange={handleChangePassword} required = {true}/>
 
-            <Button>Login!</Button>
+            <Button handleOnClick={handleLogin} loading = {loading}>Login!</Button>
 
             <Inline>
                 <p>Don't have an account?</p>
