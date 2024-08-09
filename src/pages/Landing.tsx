@@ -26,7 +26,7 @@ const Landing: React.FC<LandingProps> = ({setColor}) => {
             navigate('/gym');
           }
         })
-      }, []);
+      }, [navigate]);
 
     return (
         <div className={`${active ? "justify-between pt-2" : "justify-center"} min-h-screen flex flex-col items-center bg-yellow-400 relative`}>

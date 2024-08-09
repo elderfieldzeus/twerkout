@@ -19,7 +19,7 @@ const Main: React.FC<MainProps> = ({children, header}) => {
         navigate('/');
       }
     })
-  }, []);
+  }, [navigate]);
 
   return (
     <div className='w-full min-h-screen bg-white relative'>
