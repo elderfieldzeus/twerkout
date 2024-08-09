@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import Form from "../components/Landing/Form";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../utilities/firebase";
+import { useNavigate } from "react-router-dom";
 
 interface LandingProps {
     setColor: () => void;
@@ -8,6 +11,7 @@ interface LandingProps {
 
 const Landing: React.FC<LandingProps> = ({setColor}) => {
     const [active, setActive] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setColor();
@@ -15,6 +19,14 @@ const Landing: React.FC<LandingProps> = ({setColor}) => {
             setActive(true);
         }, 1500);
     }, [setColor]);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+          if(user) {
+            navigate('/gym');
+          }
+        })
+      }, []);
 
     return (
         <div className={`${active ? "justify-between pt-2" : "justify-center"} min-h-screen flex flex-col items-center bg-yellow-400 relative`}>

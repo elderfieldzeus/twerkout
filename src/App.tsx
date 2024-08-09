@@ -18,6 +18,8 @@ function App() {
     
   }, [white]);
 
+  
+
   const setToWhite = (): void => {
     setWhite(true);
   }

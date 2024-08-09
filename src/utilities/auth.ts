@@ -1,5 +1,5 @@
 import { auth } from "./firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 
 export interface FormReturnProps {
     status: boolean;
@@ -46,17 +46,10 @@ export async function signinEmail(email: string, password: string): Promise<Form
 
 }
 
-export async function checkAuth(userid: string) {
-    onAuthStateChanged(auth, (user) => {
-        if(user) {
-            userid = user.uid;
-            console.log(userid);
-            console.log('logged in');
-        }
-        else {
-            console.log('not logged in');
-        }
-    })
+export async function signout() {
+    signOut(auth).catch((error) => {
+        console.log(error);
+    });
 }
 
 export async function signinGoogle() {
@@ -86,15 +79,5 @@ export async function signinGoogle() {
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(credential);
         // ...
-      });
-}
-
-export async function signout() {
-    signOut(auth).then(() => {
-        console.log('Logged out successfully!');
-        // Sign-out successful.
-      }).catch((error) => {
-        console.log(error);
-        // An error happened.
       });
 }
