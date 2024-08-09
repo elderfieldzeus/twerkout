@@ -863,6 +863,18 @@ video {
   padding-top: 0.75rem;
 }
 
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.pb-16 {
+  padding-bottom: 4rem;
+}
+
+.pb-20 {
+  padding-bottom: 5rem;
+}
+
 .font-coffee {
   font-family: LonelyCoffee, sans-serif;
 }
