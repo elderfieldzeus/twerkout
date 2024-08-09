@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 
-const Gym: React.FC = () => {
+interface GymProps {
+    setColor: () => void;
+}
+
+const Gym: React.FC<GymProps> = ({setColor}) => {
+    useEffect(() => {
+        setColor();
+    }, [])
+
   return (
     <div className='w-full min-h-screen bg-white'>
         <Navbar />

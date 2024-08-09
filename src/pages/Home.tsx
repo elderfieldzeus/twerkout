@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import Form from "../components/Home/Form";
 
-const Home: React.FC = () => {
+interface HomeProps {
+    setColor: () => void;
+}
+
+const Home: React.FC<HomeProps> = ({setColor}) => {
     const [active, setActive] = useState<boolean>(false);
 
     useEffect(() => {
+        setColor();
         setTimeout(() => {
             setActive(true);
         }, 2000);
