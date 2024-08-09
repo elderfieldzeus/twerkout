@@ -37,6 +37,7 @@ export async function signinEmail(email: string, password: string): Promise<Form
         const error = e as {code: string, message: string}
         let message;
         switch(error.code) {
+            case 'auth/invalid-email': message = 'Invalid Email.'; break;
             case 'auth/invalid-credential': message = 'Invalid Credential.'; break;
             case 'auth/too-many-requests': message = 'Too many requests.'; break;
             default: message = 'Unknown Error.'; console.log(error.code);
