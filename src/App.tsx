@@ -14,7 +14,8 @@ function App() {
   const [white, setWhite] = useState<boolean>(true);
 
   useEffect(() => {
-    document.body.style.backgroundColor = white ? 'true' : '#facc15';
+    document.body.style.backgroundColor = white ? 'white' : '#facc15';
+    
   }, [white]);
 
   const setToWhite = (): void => {
