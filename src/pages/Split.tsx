@@ -8,7 +8,7 @@ interface SplitProps {
 const Split: React.FC<SplitProps> = ({setColor}) => {
     useEffect(() => {
         setColor();
-    }, [])
+    }, [setColor])
 
   return (
     <Main header='Split'>

@@ -1,10 +1,9 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from './pages/Home';
 import './styles/tailwind.css';
 import './styles/input.css';
 import Gym from './pages/Gym';
-import Header from './components/Header';
 import Split from './pages/Split';
 import Progress from './pages/Progress';
 import Notes from './pages/Notes';
@@ -12,6 +11,10 @@ import Profile from './pages/Profile';
 
 function App() {
   const [white, setWhite] = useState<boolean>(true);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = white ? 'true' : '#facc15';
+  }, [white]);
 
   const setToWhite = (): void => {
     setWhite(true);
@@ -22,8 +25,6 @@ function App() {
   }
 
   return (
-    <>
-    <Header white = {white}/>
     <div className='bg-yellow-400'>
       <BrowserRouter>
         <Suspense fallback = {<div>Loading...</div>}>
@@ -38,7 +39,6 @@ function App() {
         </Suspense>
       </BrowserRouter>
     </div>
-    </>
   )
 }
 

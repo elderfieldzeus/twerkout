@@ -14,7 +14,7 @@ const Home: React.FC<HomeProps> = ({setColor}) => {
         setTimeout(() => {
             setActive(true);
         }, 2000);
-    }, []);
+    }, [setColor]);
 
     return (
         <div className={`${active ? "justify-between pt-2" : "justify-center"} min-h-screen flex flex-col items-center bg-yellow-400 relative`}>

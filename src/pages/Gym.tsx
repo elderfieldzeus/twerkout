@@ -8,7 +8,7 @@ interface GymProps {
 const Gym: React.FC<GymProps> = ({setColor}) => {
     useEffect(() => {
         setColor();
-    }, [])
+    }, [setColor])
 
   return (
     <Main header='Workout'>

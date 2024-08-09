@@ -8,7 +8,7 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({setColor}) => {
     useEffect(() => {
         setColor();
-    }, [])
+    }, [setColor])
 
   return (
     <Main header='Profile'>

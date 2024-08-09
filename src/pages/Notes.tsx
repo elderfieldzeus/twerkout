@@ -8,7 +8,7 @@ interface NotesProps {
 const Notes: React.FC<NotesProps> = ({setColor}) => {
     useEffect(() => {
         setColor();
-    }, [])
+    }, [setColor])
 
   return (
     <Main header='Notes'>

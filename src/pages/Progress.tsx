@@ -8,7 +8,7 @@ interface ProgressProps {
 const Progress: React.FC<ProgressProps> = ({setColor}) => {
     useEffect(() => {
         setColor();
-    }, [])
+    }, [setColor])
 
   return (
     <Main header='Progress'>
