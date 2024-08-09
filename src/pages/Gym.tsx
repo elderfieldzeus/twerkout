@@ -12,7 +12,54 @@ const Gym: React.FC<GymProps> = ({setColor}) => {
 
   return (
     <Main header='Workout'>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
 
+
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+
+
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+
+        <p>meow</p>
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
+        <p>meow</p>
+        <p>meow</p><p>meow</p>
+        <p>meow</p>
     </Main>
   )
 }
