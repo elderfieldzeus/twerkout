@@ -19,7 +19,7 @@ const NotesContainer: React.FC<NotesContainerProps> = ({notes}) => {
 
         {notes.length === 0 && 
         
-        <div className={`w-full flex justify-center items-center p-2 border border-black bg-[#fdeba1] rounded-b-xl`}>
+        <div className={`w-full flex justify-center items-center p-2 border border-black bg-white rounded-b-xl`}>
             <p className='font-medium text-sm'>No notes yet.</p>
         </div>
 
