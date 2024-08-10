@@ -19,7 +19,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({user}) => {
   return (
     <div className='flex flex-col items-center'>
         <Info header="email" data={user && user.email ? user.email : ''} />
-        <Info header="date joined" data={user && user.metadata.creationTime ? date : ''} />
+        <Info header="date joined" data={date ? date : ''} />
         <Info header="no. of workouts" data="0" />
     </div>
   )
