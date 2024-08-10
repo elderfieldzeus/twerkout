@@ -79,7 +79,7 @@ const Signup: React.FC<SignupProps> = ({className, changeForm}) => {
             <Button handleOnClick={handleSignUp} loading = {loading}>Sign up!</Button>
 
             <Inline>
-                <p>Have an account?</p>
+                <p>Already have an account?</p>
                 <button onClick={changeForm} className="text-yellow-500 underline active:text-yellow-500">Login.</button>
             </Inline>
         </div>

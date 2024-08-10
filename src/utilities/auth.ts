@@ -1,3 +1,4 @@
+import { FirebaseError } from "firebase/app";
 import { auth } from "./firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 
@@ -13,8 +14,7 @@ export async function signup(email: string, password: string): Promise<FormRetur
         console.log(user);
         return {status: true};
     }
-    catch(e: unknown) {
-        const error = e as {code: string, message: string};
+    catch(error: FirebaseError | any) {
         let message;
         switch(error.code) {
             case 'auth/invalid-email': message = 'Invalid Email.'; break;
@@ -33,8 +33,7 @@ export async function signinEmail(email: string, password: string): Promise<Form
         console.log(user);
         return {status: true};
     }
-    catch(e) {
-        const error = e as {code: string, message: string}
+    catch(error: FirebaseError | any) {
         let message;
         switch(error.code) {
             case 'auth/invalid-email': message = 'Invalid Email.'; break;
@@ -53,12 +52,11 @@ export async function signout() {
     });
 }
 
-export async function signinGoogle() {
+export async function signinGoogle(): Promise<FormReturnProps> {
     const provider = new GoogleAuthProvider();
 
-    signInWithPopup(auth, provider)
-    .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
+    try {
+        const result = await signInWithPopup(auth, provider);
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential ? credential.accessToken : null;
         console.log(token);
@@ -67,8 +65,9 @@ export async function signinGoogle() {
         console.log(user);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-      }).catch((error) => {
-        // Handle Errors here.
+        return {status: true};
+    }
+    catch(error: FirebaseError | any) {
         const errorCode = error.code;
         console.log(errorCode);
         const errorMessage = error.message;
@@ -79,6 +78,7 @@ export async function signinGoogle() {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(credential);
-        // ...
-      });
+        //auth/operation-not-allowed
+        return {status: false, message: error.message};
+    }
 }

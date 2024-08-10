@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Inline from "../Inline";
 import Button from "../Button";
 import Input from "../Input";
-import { signinEmail } from "../../utilities/auth";
+import { signinEmail, signinGoogle } from "../../utilities/auth";
 import Error from "../Error";
 import { useNavigate } from "react-router-dom";
+import GoogleLogin from "./GoogleLogin";
+import Or from "./Or";
 
 interface LoginProps {
     className: string;
@@ -54,6 +56,27 @@ const Login: React.FC<LoginProps> = ({className, changeForm}) => {
         signinProcess();
     }
 
+    const handleGoogleLogin: React.MouseEventHandler<HTMLButtonElement> = () => {
+        setError(null);
+        setLoading(true);
+
+        async function googleProcess() {
+            const res = await signinGoogle();
+
+            if(res.status === true) {
+                navigate('/gym');
+            }
+            else {
+                if(res.message !== undefined) {
+                    setError(res.message);
+                }
+            }
+            setLoading(false);
+        }
+
+        googleProcess();
+    }
+
     return (
         <div className = {className}>
             <p className="font-coffee text-4xl mb-5">Welcome, back!</p>
@@ -69,6 +92,10 @@ const Login: React.FC<LoginProps> = ({className, changeForm}) => {
                 <p>Don't have an account?</p>
                 <button onClick={changeForm} className="text-yellow-500 underline active:text-yellow-500">Sign up.</button>
             </Inline>
+
+            <Or />
+
+            <GoogleLogin handleOnClick={handleGoogleLogin}/>
         </div>
     )
 }
