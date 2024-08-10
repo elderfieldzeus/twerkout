@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 interface MainProps {
     children?: React.ReactNode;
     header: string;
+    Extra?: React.ReactNode;
 }
 
-const Main: React.FC<MainProps> = ({children, header}) => {
+const Main: React.FC<MainProps> = ({children, header, Extra}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +26,8 @@ const Main: React.FC<MainProps> = ({children, header}) => {
     <div className='w-full min-h-screen bg-white relative'>
         <Navbar />
         <p className='font-coffee flex items-center text-2xl fixed top-0 h-14 px-5 w-full bg-white'>{header}</p>
-        <main className='py-16 px-5'>
+        {Extra}
+        <main className='py-16 px-5 w-full h-full'>
             {children}
         </main>
     </div>
