@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaPenToSquare } from 'react-icons/fa6'
-import Notepad from './Notepad';
+import AddNote from './AddNote';
 
 const Write: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -20,7 +20,7 @@ const Write: React.FC = () => {
       </div>
       {open &&
       
-      <Notepad handleClose = {handleClose} />
+      <AddNote handleClose = {handleClose} />
       
       }
     </>
