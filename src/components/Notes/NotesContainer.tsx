@@ -1,5 +1,5 @@
 import React from 'react'
-import { DocReturn } from '../../utilities/fetch';
+import { DocReturn } from '../../utilities/get';
 import Note from './Note';
 
 interface NotesContainerProps {

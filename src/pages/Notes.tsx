@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Main from '../components/Main';
-import { DocReturn, getNotes } from '../utilities/fetch';
+import { DocReturn, subscribeToNotes } from '../utilities/get';
 import LoadingScreen from '../components/LoadingScreen';
 import NotesContainer from '../components/Notes/NotesContainer';
 import Write from '../components/Notes/Write';
@@ -18,15 +18,13 @@ const Notes: React.FC<NotesProps> = ({setColor}) => {
  
     setLoading(true);
 
-    async function handleNotes() {
-      if(auth !== null && auth.currentUser !== null ) {
-        const docNotes = await getNotes(auth.currentUser.uid);
-        setNotes(docNotes);
-      }
-      setLoading(false);
+    const user = auth.currentUser;
+    if(user) {
+      subscribeToNotes(user.uid, (updatedNotes) => {
+        setNotes(updatedNotes);
+        setLoading(false);
+      });
     }
-
-    handleNotes();
   }, []);
 
     useEffect(() => {
@@ -35,7 +33,7 @@ const Notes: React.FC<NotesProps> = ({setColor}) => {
 
   return (
     <Main header='Notes' 
-      Extra = {<Write />}
+      Extra = {<Write noteCount = {notes.length} />}
     >
       {loading ? 
       
