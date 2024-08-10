@@ -30,7 +30,7 @@ const AddNote: React.FC<AddNoteProps> = ({handleClose}) => {
     <Notepad handleClose={handleClose}>
         <input 
                 type="text" 
-                className='w-[calc(100%-1rem)] outline-none m-2 p-1 border-b-2 font-medium' 
+                className='w-[calc(100%-1rem)] outline-none m-2 p-1 border-b-2 font-medium rounded-none' 
                 placeholder='Title' 
                 value={title} 
                 onChange={handleChangeTitle}/>
