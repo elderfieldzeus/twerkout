@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import CheckButton from '../CheckButton'
 import Notepad from './Notepad';
+import { postNote } from '../../utilities/post';
+import { auth } from '../../utilities/firebase';
 
 interface AddNoteProps {
-    handleClose: React.MouseEventHandler<HTMLButtonElement>
+    handleClose: (event?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const AddNote: React.FC<AddNoteProps> = ({handleClose}) => {
@@ -23,6 +25,13 @@ const AddNote: React.FC<AddNoteProps> = ({handleClose}) => {
         if(e.target.value.length <= CONTENT_MAX_COUNT) {
             setCount(e.target.value.length)
             setContent(e.target.value);
+        }
+    }
+
+    const handlePost: React.MouseEventHandler<HTMLButtonElement> = () => {
+        if(auth?.currentUser && title && content) {
+            postNote(title, content, auth.currentUser.uid);
+            handleClose();
         }
     }
 
@@ -49,7 +58,7 @@ const AddNote: React.FC<AddNoteProps> = ({handleClose}) => {
             
 
             <div className='absolute bottom-7 left-1/2 -translate-x-1/2'>
-                <CheckButton handleCheck = {alert} />
+                <CheckButton handleCheck = {handlePost} />
             </div>
     </Notepad>
   )

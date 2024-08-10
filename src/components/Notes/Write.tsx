@@ -9,7 +9,7 @@ const Write: React.FC = () => {
     setOpen(true);
   }
 
-  const handleClose: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const handleClose: (event?: React.MouseEvent<HTMLButtonElement>) => void = () => {
     setOpen(false);
   }
 
