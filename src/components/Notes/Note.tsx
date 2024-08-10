@@ -1,13 +1,48 @@
 import React from 'react'
 import { DocumentData } from 'firebase/firestore';
+import { DocReturn, getNote } from '../../utilities/get';
+import ShowNote from './ShowNote';
+import { deleteNote } from '../../utilities/delete';
 
 interface NoteProps {
+    id: string;
     data: DocumentData;
     last: boolean;
-    handleOpenNotes?: React.MouseEventHandler<HTMLDivElement>
+    openNotepad: () => void;
+    changeContent: (Content: React.ReactNode) => void;
+    handleClose: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Note: React.FC<NoteProps> = ({data, last, handleOpenNotes}) => {
+const Note: React.FC<NoteProps> = ({id, data, last, openNotepad, changeContent, handleClose}) => {
+  const handleDeleteNotes: React.MouseEventHandler<HTMLButtonElement> = () => {
+    deleteNote(id);
+    handleClose();
+  }
+  
+  const handleOpenNotes: React.MouseEventHandler<HTMLDivElement> = () => {
+    openNotepad();
+
+    async function handleGetNotes() {
+      try {
+        const note: DocReturn | null = await getNote(id);
+
+        if(note) {
+          changeContent(
+            <ShowNote 
+              title = {note.data.title}
+              content = {note.data.content}
+              handleDeleteNotes = {handleDeleteNotes}
+            />
+          );
+        }
+      }
+      catch(e) {
+        console.error(e);
+      }
+    } 
+
+    handleGetNotes();
+  }
 
   return (
     <div onClick={handleOpenNotes} className={`w-full flex justify-between items-center p-2 border border-black bg-white shadow-xl active:bg-yellow-300 transition-all hover:cursor-pointer ${last === true ? 'rounded-b-xl' : ''}`}>

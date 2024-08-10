@@ -44,22 +44,22 @@ const AddNote: React.FC<AddNoteProps> = ({handleClose}) => {
                 value={title} 
                 onChange={handleChangeTitle}/>
 
-            <div className='w-[calc(100%-1rem)] h-1/2 relative'>
-                <textarea 
-                    value={content} 
-                    onChange={handleChangeContent} 
-                    className='w-full h-full outline-none m-2 p-1 font-medium rounded-md resize-none' 
-                    placeholder='Your notes here...'
-                ></textarea>
+        <div className='w-[calc(100%-1rem)] h-1/2 relative'>
+            <textarea 
+                value={content} 
+                onChange={handleChangeContent} 
+                className='w-full h-full outline-none m-2 p-1 font-medium rounded-md resize-none' 
+                placeholder='Your notes here...'
+            ></textarea>
 
-                <p className={`${textCount === CONTENT_MAX_COUNT ? "text-red-400" : "text-gray-400"} text-xs font-bold 
-                absolute bottom-0 right-0`}>{textCount}/{CONTENT_MAX_COUNT}</p>
-            </div>
-            
+            <p className={`${textCount === CONTENT_MAX_COUNT ? "text-red-400" : "text-gray-400"} text-xs font-bold 
+            absolute bottom-0 right-0`}>{textCount}/{CONTENT_MAX_COUNT}</p>
+        </div>
+        
 
-            <div className='absolute bottom-7 left-1/2 -translate-x-1/2'>
-                <CheckButton handleCheck = {handlePost} />
-            </div>
+        <div className='absolute bottom-7 left-1/2 -translate-x-1/2'>
+            <CheckButton handleCheck = {handlePost} />
+        </div>
     </Notepad>
   )
 }
