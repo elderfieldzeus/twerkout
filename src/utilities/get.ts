@@ -1,5 +1,5 @@
 import { database } from "./firebase";
-import { collection, doc, getDoc, DocumentData, onSnapshot, query, where } from "firebase/firestore";
+import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore";
 
 export interface DocReturn {
     id: string;
@@ -26,24 +26,4 @@ export function subscribeToNotes(userID: string, callback: (notes: DocReturn[]) 
     }, (error) => {
         console.error("Error getting notes:", error);
     });
-}
-
-export async function getNote(docID: string): Promise<DocReturn | null> {
-    try {
-        const docRef = doc(database, "notes", docID);
-
-        const docSnap = await getDoc(docRef);
-
-        if(docSnap.exists()) {
-            return {
-                id: docSnap.id,
-                data: docSnap.data()
-            }
-        }
-
-        return null;
-    }
-    catch(e) {
-        return null;
-    }
 }
