@@ -1,5 +1,5 @@
 import { database } from "./firebase";
-import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore";
+import { collection, DocumentData, getDocs, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
 
 export interface DocReturn {
     id: string;
@@ -26,4 +26,32 @@ export function subscribeToNotes(userID: string, callback: (notes: DocReturn[]) 
     }, (error) => {
         console.error("Error getting notes:", error);
     });
+}
+
+export async function getCurrentSplit(userID: string): Promise<DocReturn[] | null> {
+    try {
+        const q = query(
+            collection(database, "split"), 
+            where("userid", "==", userID),
+            where("isActive", "==", "true"),
+            orderBy("createdAt", "desc"),
+            limit(1)
+        );
+
+        const docs = await getDocs(q);
+        const docReturn: DocReturn[] = []
+
+        docs.forEach((doc) => {
+            docReturn.push({
+                id: doc.id,
+                data: doc.data()
+            });
+        });
+
+        return docReturn;
+    }
+    catch(e) {
+        console.error(e);
+        return null;
+    }
 }

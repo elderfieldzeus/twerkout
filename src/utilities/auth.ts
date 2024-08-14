@@ -14,13 +14,15 @@ export async function signup(email: string, password: string): Promise<FormRetur
         console.log(user);
         return {status: true};
     }
-    catch(error: FirebaseError | any) {
-        let message;
-        switch(error.code) {
-            case 'auth/invalid-email': message = 'Invalid Email.'; break;
-            case 'auth/weak-password': message = 'Weak Password.'; break;
-            case 'auth/email-already-in-use': message = 'Email already in use.'; break;
-            default: message = 'Unknown Error.'; console.log(error.code);
+    catch(error: FirebaseError | unknown) {
+        let message = 'UNKNOWN';
+        if(error instanceof FirebaseError) {
+            switch(error.code) {
+                case 'auth/invalid-email': message = 'Invalid Email.'; break;
+                case 'auth/weak-password': message = 'Weak Password.'; break;
+                case 'auth/email-already-in-use': message = 'Email already in use.'; break;
+                default: message = 'Unknown Error.'; console.log(error.code);
+            }
         }
         return {status: false, message};
     }
@@ -33,17 +35,18 @@ export async function signinEmail(email: string, password: string): Promise<Form
         console.log(user);
         return {status: true};
     }
-    catch(error: FirebaseError | any) {
-        let message;
-        switch(error.code) {
-            case 'auth/invalid-email': message = 'Invalid Email.'; break;
-            case 'auth/invalid-credential': message = 'Invalid Credential.'; break;
-            case 'auth/too-many-requests': message = 'Too many requests.'; break;
-            default: message = 'Unknown Error.'; console.log(error.code);
+    catch(error: FirebaseError | unknown) {
+        let message = 'UNKNOWN';
+        if(error instanceof FirebaseError) {
+            switch(error.code) {
+                case 'auth/invalid-email': message = 'Invalid Email.'; break;
+                case 'auth/invalid-credential': message = 'Invalid Credential.'; break;
+                case 'auth/too-many-requests': message = 'Too many requests.'; break;
+                default: message = 'Unknown Error.'; console.log(error.code);
+            }
         }
         return {status: false, message};
     }
-
 }
 
 export async function signout() {
@@ -67,18 +70,22 @@ export async function signinGoogle(): Promise<FormReturnProps> {
         // ...
         return {status: true};
     }
-    catch(error: FirebaseError | any) {
-        const errorCode = error.code;
-        console.log(errorCode);
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        // The email of the user's account used.
-        const email = error.customData.email;
-        console.log(email);
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(credential);
+    catch(error: FirebaseError | unknown) {
+        let message = "UNKNOWN";
+        if(error instanceof FirebaseError) {
+            const errorCode = error.code;
+            console.log(errorCode);
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            // The email of the user's account used.
+            const email = error.customData?.email;
+            console.log(email);
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            console.log(credential);
+            message = error.message;
+        }
         //auth/operation-not-allowed
-        return {status: false, message: error.message};
+        return {status: false, message};
     }
 }
