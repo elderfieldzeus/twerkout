@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-      font-family: 'LonelyCoffee';
-      src: url('/fonts/LonelyCoffee.otf') format('opentype');
-    }
+  @font-face {
+    font-family: "LonelyCoffee";
+    src: url("/fonts/LonelyCoffee.otf") format("opentype");
   }
+}

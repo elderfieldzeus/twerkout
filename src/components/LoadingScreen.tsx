@@ -1,12 +1,12 @@
-import React from 'react'
-import Logo from './Logo'
+import React from "react";
+import Logo from "./Logo";
 
 const LoadingScreen: React.FC = () => {
   return (
-    <div className='flex justify-center items-center h-screen w-full'>
-        <Logo className='size-28 select-none -mt-[7.5rem]'/>
+    <div className="flex h-screen w-full items-center justify-center">
+      <Logo className="-mt-[7.5rem] size-28 select-none" />
     </div>
-  )
-}
+  );
+};
 
-export default LoadingScreen
+export default LoadingScreen;

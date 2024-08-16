@@ -7,83 +7,111 @@ import { signup } from "../../utilities/auth";
 import Error from "../Error";
 
 interface SignupProps {
-    className: string;
-    changeForm: () => void;
+  className: string;
+  changeForm: () => void;
 }
 
-const Signup: React.FC<SignupProps> = ({className, changeForm}) => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [cpassword, setCPassword] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
+const Signup: React.FC<SignupProps> = ({ className, changeForm }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [cpassword, setCPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-    const handleChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setEmail(e.target.value);
+  const handleChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleChangePassword: React.ChangeEventHandler<HTMLInputElement> = (
+    e,
+  ) => {
+    setPassword(e.target.value);
+  };
+
+  const handleChangeCPassword: React.ChangeEventHandler<HTMLInputElement> = (
+    e,
+  ) => {
+    setCPassword(e.target.value);
+  };
+
+  const handleSignUp: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setError(null);
+
+    if (!email || !password || !cpassword) {
+      setError("All fields are required.");
+      return;
     }
 
-    const handleChangePassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setPassword(e.target.value);
+    if (password !== cpassword) {
+      setError("Passwords do not match.");
+      return;
     }
 
-    const handleChangeCPassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setCPassword(e.target.value);
-    }
+    setLoading(true);
 
-    const handleSignUp: React.MouseEventHandler<HTMLButtonElement> = () => {
+    async function signupProcess() {
+      const res = await signup(email, password);
+
+      if (res.status === true) {
         setError(null);
-
-        if(!email || !password || !cpassword) {
-            setError('All fields are required.');
-            return;
+        navigate("/gym");
+      } else {
+        if (res.message !== undefined) {
+          setError(res.message);
         }
-
-        if(password !== cpassword) {
-            setError('Passwords do not match.');
-            return;
-        }
-
-        setLoading(true);
-
-        async function signupProcess() {
-            const res = await signup(email, password);
-
-            if(res.status === true) {
-                setError(null);
-                navigate('/gym');
-            }
-            else {
-                if(res.message !== undefined) {
-                    setError(res.message);
-                }
-            }
-            setLoading(false);
-        } 
-
-        signupProcess();
+      }
+      setLoading(false);
     }
 
-    return (
-        <div className = {className}>
-            <p className="font-coffee text-4xl mb-5">Hey, stranger!</p>
+    signupProcess();
+  };
 
-            {error !== null && <Error message = {error} />}
+  return (
+    <div className={className}>
+      <p className="mb-5 font-coffee text-4xl">Hey, stranger!</p>
 
-            <Input type="email" placeholder="Email" value = {email} handleOnChange={handleChangeEmail} required = {true}/>
+      {error !== null && <Error message={error} />}
 
-            <Input type="password" placeholder="Password" value = {password} handleOnChange={handleChangePassword} required = {true}/>
+      <Input
+        type="email"
+        placeholder="Email"
+        value={email}
+        handleOnChange={handleChangeEmail}
+        required={true}
+      />
 
-            <Input type="password" placeholder="Confirm Password" value = {cpassword} handleOnChange={handleChangeCPassword} required = {true}/>
+      <Input
+        type="password"
+        placeholder="Password"
+        value={password}
+        handleOnChange={handleChangePassword}
+        required={true}
+      />
 
-            <Button handleOnClick={handleSignUp} loading = {loading}>Sign up!</Button>
+      <Input
+        type="password"
+        placeholder="Confirm Password"
+        value={cpassword}
+        handleOnChange={handleChangeCPassword}
+        required={true}
+      />
 
-            <Inline>
-                <p>Already have an account?</p>
-                <button onClick={changeForm} className="text-yellow-500 underline active:text-yellow-500">Login.</button>
-            </Inline>
-        </div>
-    )
-}
+      <Button handleOnClick={handleSignUp} loading={loading}>
+        Sign up!
+      </Button>
+
+      <Inline>
+        <p>Already have an account?</p>
+        <button
+          onClick={changeForm}
+          className="text-yellow-500 underline active:text-yellow-500"
+        >
+          Login.
+        </button>
+      </Inline>
+    </div>
+  );
+};
 
 export default Signup;

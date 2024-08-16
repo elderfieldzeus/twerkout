@@ -1,8 +1,7 @@
 {
-    "hosting": {
-      "site": "twerkout",
-  
-      "public": "public"
-    }
+  "hosting": {
+    "site": "twerkout",
+
+    "public": "public"
   }
-  
+}

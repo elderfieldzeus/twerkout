@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 interface InputProps {
   type?: string;
@@ -8,10 +8,23 @@ interface InputProps {
   required?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({type = 'text', placeholder, value, handleOnChange, required = false}) => {
+const Input: React.FC<InputProps> = ({
+  type = "text",
+  placeholder,
+  value,
+  handleOnChange,
+  required = false,
+}) => {
   return (
-    <input type={type} className='w-full h-12 rounded-lg bg-gray-100 px-4 focus:outline-yellow-400' placeholder = {placeholder} value={value} onChange = {handleOnChange} required = {required}/>
-  )
-}
+    <input
+      type={type}
+      className="h-12 w-full rounded-lg bg-gray-100 px-4 focus:outline-yellow-400"
+      placeholder={placeholder}
+      value={value}
+      onChange={handleOnChange}
+      required={required}
+    />
+  );
+};
 
 export default Input;

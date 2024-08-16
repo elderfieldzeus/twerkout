@@ -1,20 +1,16 @@
-import React, { useEffect } from 'react'
-import Main from '../components/Main';
+import React, { useEffect } from "react";
+import Main from "../components/Main";
 
 interface ProgressProps {
-    setColor: () => void;
+  setColor: () => void;
 }
 
-const Progress: React.FC<ProgressProps> = ({setColor}) => {
-    useEffect(() => {
-        setColor();
-    }, [setColor])
+const Progress: React.FC<ProgressProps> = ({ setColor }) => {
+  useEffect(() => {
+    setColor();
+  }, [setColor]);
 
-  return (
-    <Main header='Progress'>
+  return <Main header="Progress"></Main>;
+};
 
-    </Main>
-  )
-}
-
-export default Progress
+export default Progress;

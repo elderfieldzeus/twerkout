@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 
 interface FilterProps {
-    children?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const Filter: React.FC<FilterProps> = ({children}) => {
+const Filter: React.FC<FilterProps> = ({ children }) => {
   return (
-    <div className='fixed h-screen w-full bg-black bg-opacity-50 z-20 flex justify-center items-center'>
-        {children}
+    <div className="fixed z-20 flex h-screen w-full items-center justify-center bg-black bg-opacity-50">
+      {children}
     </div>
-  )
-}
+  );
+};
 
 export default Filter;

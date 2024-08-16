@@ -9,95 +9,114 @@ import GoogleLogin from "./GoogleLogin";
 import Or from "./Or";
 
 interface LoginProps {
-    className: string;
-    changeForm: () => void
+  className: string;
+  changeForm: () => void;
 }
 
-const Login: React.FC<LoginProps> = ({className, changeForm}) => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const navigate = useNavigate();
+const Login: React.FC<LoginProps> = ({ className, changeForm }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
-    const handleChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setEmail(e.target.value);
+  const handleChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleChangePassword: React.ChangeEventHandler<HTMLInputElement> = (
+    e,
+  ) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setError(null);
+
+    if (!email || !password) {
+      setError("All fields are required.");
+      return;
     }
 
-    const handleChangePassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setPassword(e.target.value);
-    }
+    setLoading(true);
 
-    const handleLogin: React.MouseEventHandler<HTMLButtonElement> = () => {
+    async function signinProcess() {
+      const res = await signinEmail(email, password);
+
+      if (res.status === true) {
         setError(null);
-
-        if(!email || !password) {
-            setError('All fields are required.');
-            return;
+        navigate("/gym");
+      } else {
+        if (res.message !== undefined) {
+          setError(res.message);
         }
-
-        setLoading(true);
-
-        async function signinProcess() {
-            const res = await signinEmail(email, password);
-
-            if(res.status === true) {
-                setError(null);
-                navigate('/gym');
-            }
-            else {
-                if(res.message !== undefined) {
-                    setError(res.message);
-                }
-            }
-            setLoading(false);
-        } 
-
-        signinProcess();
+      }
+      setLoading(false);
     }
 
-    const handleGoogleLogin: React.MouseEventHandler<HTMLButtonElement> = () => {
-        setError(null);
-        setLoading(true);
+    signinProcess();
+  };
 
-        async function googleProcess() {
-            const res = await signinGoogle();
+  const handleGoogleLogin: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setError(null);
+    setLoading(true);
 
-            if(res.status === true) {
-                navigate('/gym');
-            }
-            else {
-                if(res.message !== undefined) {
-                    setError(res.message);
-                }
-            }
-            setLoading(false);
+    async function googleProcess() {
+      const res = await signinGoogle();
+
+      if (res.status === true) {
+        navigate("/gym");
+      } else {
+        if (res.message !== undefined) {
+          setError(res.message);
         }
-
-        googleProcess();
+      }
+      setLoading(false);
     }
 
-    return (
-        <div className = {className}>
-            <p className="font-coffee text-4xl mb-5">Welcome, back!</p>
+    googleProcess();
+  };
 
-            {error !== null && <Error message={error} />}
+  return (
+    <div className={className}>
+      <p className="mb-5 font-coffee text-4xl">Welcome, back!</p>
 
-            <Input type="email" placeholder="Email" value = {email} handleOnChange={handleChangeEmail} required = {true}/>
-            <Input type="password" placeholder="Password" value = {password} handleOnChange={handleChangePassword} required = {true}/>
+      {error !== null && <Error message={error} />}
 
-            <Button handleOnClick={handleLogin} loading = {loading}>Login!</Button>
+      <Input
+        type="email"
+        placeholder="Email"
+        value={email}
+        handleOnChange={handleChangeEmail}
+        required={true}
+      />
+      <Input
+        type="password"
+        placeholder="Password"
+        value={password}
+        handleOnChange={handleChangePassword}
+        required={true}
+      />
 
-            <Inline>
-                <p>Don't have an account?</p>
-                <button onClick={changeForm} className="text-yellow-500 underline active:text-yellow-500">Sign up.</button>
-            </Inline>
+      <Button handleOnClick={handleLogin} loading={loading}>
+        Login!
+      </Button>
 
-            <Or />
+      <Inline>
+        <p>Don't have an account?</p>
+        <button
+          onClick={changeForm}
+          className="text-yellow-500 underline active:text-yellow-500"
+        >
+          Sign up.
+        </button>
+      </Inline>
 
-            <GoogleLogin handleOnClick={handleGoogleLogin}/>
-        </div>
-    )
-}
+      <Or />
+
+      <GoogleLogin handleOnClick={handleGoogleLogin} />
+    </div>
+  );
+};
 
 export default Login;
