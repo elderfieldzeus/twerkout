@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "tailwind": "tailwindcss -i ./src/styles/input.css -o ./src/styles/tailwind.css --watch"
+    "tailwind": "tailwindcss -i ./src/styles/input.css -o ./src/styles/tailwind.css --watch",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "firebase": "^10.12.5",

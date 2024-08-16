@@ -4,8 +4,8 @@ interface CurrentSplit {}
 
 const CurrentSplit: React.FC<CurrentSplit> = () => {
   return (
-    <button className="h-44 w-full rounded-xl border border-black bg-white shadow-xl active:bg-gray-100 flex px-4 font-coffee items-start">
-      <div className="text-start pt-6">
+    <button className="flex h-44 w-full items-start rounded-xl border-2 border-black bg-white px-4 font-coffee shadow-xl active:bg-gray-100">
+      <div className="pt-6 text-start">
         <p>Your current split:</p>
         <p className="text-gray-500">N/A</p>
       </div>

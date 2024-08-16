@@ -17,7 +17,7 @@ const NotesContainer: React.FC<NotesContainerProps> = ({
 }) => {
   return (
     <div className="w-full">
-      <div className="flex w-full items-center justify-between rounded-t-xl border border-black bg-yellow-400 p-2 font-coffee text-sm">
+      <div className="flex w-full items-center justify-between rounded-t-xl border-2 border-black bg-yellow-400 p-2 font-coffee text-sm">
         <p>Title</p>
         <p>Date</p>
       </div>

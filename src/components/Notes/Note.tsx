@@ -39,7 +39,7 @@ const Note: React.FC<NoteProps> = ({
   return (
     <div
       onClick={handleOpenNotes}
-      className={`flex w-full items-center justify-between border border-black bg-white p-2 shadow-xl transition-all hover:cursor-pointer active:bg-yellow-300 ${last === true ? "rounded-b-xl" : ""}`}
+      className={`flex w-full items-center justify-between border-2 border-t-0 border-black bg-white p-2 shadow-xl transition-all hover:cursor-pointer active:bg-yellow-300 ${last === true ? "rounded-b-xl" : ""}`}
     >
       <p className="text-sm font-medium">{data.title}</p>
       <p className="text-xs font-medium">
