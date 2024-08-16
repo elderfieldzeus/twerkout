@@ -33,7 +33,10 @@ function App() {
             <Route path="/" element={<Landing setColor={setToYellow} />} />
             <Route path="/gym" element={<Gym setColor={setToWhite} />} />
             <Route path="/split" element={<Split setColor={setToWhite} />} />
-            <Route path="/split/currentsplit" element={<CurrentSplit setColor={setToWhite} />} />
+            <Route
+              path="/split/currentsplit"
+              element={<CurrentSplit setColor={setToWhite} />}
+            />
             <Route
               path="/progress"
               element={<Progress setColor={setToWhite} />}

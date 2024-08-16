@@ -5,7 +5,7 @@ const PastSplits: React.FC = () => {
   return (
     <div className="mt-8">
       <p className="font-coffee">Previous splits</p>
-      <div className="my-4 flex flex-col w-full grid-cols-2 gap-1">
+      <div className="my-4 flex w-full grid-cols-2 flex-col gap-1">
         <ArchivedSplit />
         <ArchivedSplit />
         <ArchivedSplit />

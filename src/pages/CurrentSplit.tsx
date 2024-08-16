@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Main from "../components/Main";
+import AddSplit from "../components/Split/AddSplit";
 
 interface CurrentSplitProps {
   setColor: () => void;
@@ -11,8 +12,8 @@ const CurrentSplit: React.FC<CurrentSplitProps> = ({ setColor }) => {
   }, [setColor]);
 
   return (
-    <Main header="Current Split">
-
+    <Main header="Your Split">
+      <AddSplit />
     </Main>
   );
 };
