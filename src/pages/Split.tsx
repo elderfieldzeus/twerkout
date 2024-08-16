@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Main from "../components/Main";
-import CurrentSplit from "../components/Split/CurrentSplit";
+import CurrentSplitButton from "../components/Split/CurrentSplitButton";
 import PastSplits from "../components/Split/PastSplits";
 
 interface SplitProps {
@@ -14,7 +14,7 @@ const Split: React.FC<SplitProps> = ({ setColor }) => {
 
   return (
     <Main header="Split">
-      <CurrentSplit />
+      <CurrentSplitButton />
       <PastSplits />
     </Main>
   );

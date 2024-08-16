@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-interface CurrentSplit {}
+interface CurrentSplitButton {}
 
-const CurrentSplit: React.FC<CurrentSplit> = () => {
+const CurrentSplitButton: React.FC<CurrentSplitButton> = () => {
   const navigate = useNavigate();
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -25,4 +25,4 @@ const CurrentSplit: React.FC<CurrentSplit> = () => {
   );
 };
 
-export default CurrentSplit;
+export default CurrentSplitButton;
