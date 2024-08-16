@@ -5,6 +5,7 @@ import "./styles/input.css";
 import Landing from "./pages/Landing";
 import Gym from "./pages/Gym";
 import Split from "./pages/Split";
+import CurrentSplit from "./pages/CurrentSplit";
 import Progress from "./pages/Progress";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" element={<Landing setColor={setToYellow} />} />
             <Route path="/gym" element={<Gym setColor={setToWhite} />} />
             <Route path="/split" element={<Split setColor={setToWhite} />} />
+            <Route path="/split/currentsplit" element={<CurrentSplit setColor={setToWhite} />} />
             <Route
               path="/progress"
               element={<Progress setColor={setToWhite} />}
