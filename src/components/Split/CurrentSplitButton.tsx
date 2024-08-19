@@ -7,7 +7,7 @@ const CurrentSplitButton: React.FC<CurrentSplitButton> = () => {
   const navigate = useNavigate();
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    navigate("/split/currentsplit");
+    navigate("/split/current");
   };
 
   return (

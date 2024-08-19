@@ -732,6 +732,22 @@ video {
   height: 6rem;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-\[30rem\] {
+  height: 30rem;
+}
+
+.h-\[35rem\] {
+  height: 35rem;
+}
+
+.h-\[32rem\] {
+  height: 32rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -754,6 +770,30 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-52 {
+  width: 13rem;
+}
+
+.w-60 {
+  width: 15rem;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
+.w-7 {
+  width: 1.75rem;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .-translate-x-1\/2 {

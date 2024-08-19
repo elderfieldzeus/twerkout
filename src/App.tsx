@@ -9,6 +9,7 @@ import CurrentSplit from "./pages/CurrentSplit";
 import Progress from "./pages/Progress";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
+import NewSplit from "./pages/NewSplit";
 
 function App() {
   const [white, setWhite] = useState<boolean>(true);
@@ -34,8 +35,12 @@ function App() {
             <Route path="/gym" element={<Gym setColor={setToWhite} />} />
             <Route path="/split" element={<Split setColor={setToWhite} />} />
             <Route
-              path="/split/currentsplit"
+              path="/split/current"
               element={<CurrentSplit setColor={setToWhite} />}
+            />
+            <Route
+              path="/split/new"
+              element={<NewSplit setColor={setToWhite} />}
             />
             <Route
               path="/progress"

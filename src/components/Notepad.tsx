@@ -1,6 +1,6 @@
 import React from "react";
-import CloseButton from "../CloseButton";
-import Filter from "../Profile/Filter";
+import CloseButton from "./CloseButton";
+import Filter from "./Filter";
 
 interface NotepadProps {
   handleClose: React.MouseEventHandler<HTMLButtonElement>;

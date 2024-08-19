@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Main from "../components/Main";
 import AddSplitButton from "../components/Split/AddSplitButton";
-import AddSplit from "../components/Split/AddSplit";
+import { useNavigate } from "react-router-dom";
 
 interface CurrentSplitProps {
   setColor: () => void;
 }
 
-const CurrentSplit: React.FC<CurrentSplitProps> = ({ setColor }) => {
-  const [open, setOpen] = useState<boolean>(false);
+const CurrentSplit: React.FC<CurrentSplitProps> = ({ setColor }) => {  
+  const navigate = useNavigate();
 
   useEffect(() => {
     setColor();
   }, [setColor]);
 
   const handleOpen: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setOpen(true);
+    navigate("/split/new");
   }
 
   return (
     <Main
       header="Your Split"
-      Extra={<>
-        {open && < AddSplit />}
-        </>
-      }
     >
       <AddSplitButton
         handleOpen = {handleOpen}

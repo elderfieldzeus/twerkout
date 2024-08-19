@@ -5,7 +5,7 @@ import LoadingScreen from "../components/LoadingScreen";
 import NotesContainer from "../components/Notes/NotesContainer";
 import Write from "../components/Notes/Write";
 import { auth } from "../utilities/firebase";
-import Notepad from "../components/Notes/Notepad";
+import Notepad from "../components/Notepad";
 
 interface NotesProps {
   setColor: () => void;

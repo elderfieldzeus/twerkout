@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CheckButton from "../CheckButton";
-import Notepad from "./Notepad";
+import Notepad from "../Notepad";
 import { postNote } from "../../utilities/post";
 import { auth } from "../../utilities/firebase";
 
