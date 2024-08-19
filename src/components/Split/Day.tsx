@@ -7,9 +7,9 @@ interface DayProps {
 
 const Day: React.FC<DayProps> = ({title, workouts}) => {
   return (
-    <div>
+    <div className='w-full'>
         <p className='font-coffee'>{title}</p>
-        <ul className='text-sm font-medium list-disc px-6 grid grid-cols-2 gap-6'>
+        <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] gap-6'>
             {workouts.map(workout => {
                 return <li>{workout}</li>
             })}
