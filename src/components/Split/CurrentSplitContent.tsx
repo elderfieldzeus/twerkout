@@ -8,8 +8,9 @@ const CurrentSplitContent: React.FC = () => {
           <hr className='my-3 border' />
           
           <p className='font-coffee'>PUSH</p>
-          <ul className='text-sm font-medium list-disc px-6'>
+          <ul className='text-sm font-medium list-disc px-6 grid grid-cols-2 gap-6'>
               <li>Bench Press</li>
+              <li>Kevin Durant</li>
           </ul>
 
           <hr className='my-3 border' />
