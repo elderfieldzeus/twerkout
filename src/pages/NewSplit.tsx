@@ -20,7 +20,7 @@ export interface Split {
 }
 
 const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
-  const MAX_TITLE: number = 24;
+  const MAX_TITLE: number = 16;
 
   const defaultSplit: Split = {
     name: "",
@@ -30,7 +30,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const [split, setSplit] = useState<Split>(defaultSplit);
 
   const handleChangeName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    if(e.target.value.length < MAX_TITLE) {
+    if(e.target.value.length <= MAX_TITLE) {
       setSplit(prev => ({...prev, name: e.target.value}));
     }
   }
@@ -47,6 +47,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
         <SplitInput 
           split = {split}
           handleChangeName = {handleChangeName}
+          MAX_TITLE = {MAX_TITLE}
         />
       </SplitContainer>
 
