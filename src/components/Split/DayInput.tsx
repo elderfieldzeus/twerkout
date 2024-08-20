@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Day } from '../../pages/NewSplit'
 import HorizontalBar from '../HorizontalBar';
+import DropdownButton from '../DropdownButton';
 
 interface DayInputProps {
     day: Day;
@@ -8,21 +9,38 @@ interface DayInputProps {
 }
 
 const DayInput: React.FC<DayInputProps> = ({ day, handleChange }) => {
+    const [show, setShow] = useState<boolean>(false);
+
+    const toggleShow: React.MouseEventHandler<HTMLButtonElement> = () => {
+        setShow(prev => !prev);
+    }
+
   return (
     <>
         <HorizontalBar />
         <div>
-            <input 
-                className='font-coffee focus:outline-none'
-                placeholder='DAY'
-                value={day.name}
-                onChange={handleChange}
-            />
-            <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] gap-6'>
-                {day.workoutIds.map(workout => {
-                    return <li>{workout}</li>
-                })}
-            </ul>
+            <div className='flex justify-between items-center'>
+                <input
+                    className='font-coffee focus:outline-none w-full'
+                    placeholder='DAY'
+                    value={day.name}
+                    onChange={handleChange}
+                />
+
+                <DropdownButton 
+                    show={show} 
+                    handleClick={toggleShow} 
+                />
+            </div>
+            {
+                    show 
+                    &&
+                    <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] gap-6'>
+                        {day.workoutIds.map(workout => {
+                            return <li>{workout}</li>
+                        })}
+                    </ul>
+            }
         </div>
     </>
   )
