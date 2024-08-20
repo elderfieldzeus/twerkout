@@ -1,29 +1,37 @@
 import React from 'react'
 import { Split } from '../../pages/NewSplit'
-import HorizontalBar from '../HorizontalBar';
+import TitleInput from './TitleInput';
+import DayInput from './DayInput';
 
 interface SplitInputProps {
     split: Split;
     handleChangeName: React.ChangeEventHandler<HTMLInputElement>;
     MAX_TITLE: number;
+    handleAddDay: React.MouseEventHandler<HTMLButtonElement>;
+    handleChangeDayName: (index: number) => React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE }) => {
+const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE, handleAddDay, handleChangeDayName }) => {
   return (
     <div>
-        <div className='relative'>
-            <input
-                type="text"
-                onChange={handleChangeName}
-                value={split.name}
-                className='font-coffee text-xl w-full text-center focus:outline-none '
-                placeholder='title'
-            />
-             {/* className={`${textCount === CONTENT_MAX_COUNT ? "text-red-400" : "text-gray-400"} absolute bottom-0 right-0 text-xs font-bold`} */}
-            <p className={`${split.name.length === MAX_TITLE ? "text-red-400" : "text-gray-400"} absolute bottom-0 right-0 text-xs font-bold`}>{split.name.length}/{MAX_TITLE}</p>
-        </div>
+        <TitleInput
+            handleChangeName={handleChangeName}
+            name={split.name}
+            MAX_TITLE={MAX_TITLE}
+        />
 
-        <HorizontalBar />
+        {split.days.map((day, index) => {
+            return (
+            <>
+                <DayInput 
+                    key = {index}
+                    day = {day}
+                    handleChange = {handleChangeDayName(index)}
+                />
+            </>)
+        })}
+
+        <button onClick={handleAddDay} className='size-10 bg-green-400 rounded-full'>+</button>
     </div>
   )
 }

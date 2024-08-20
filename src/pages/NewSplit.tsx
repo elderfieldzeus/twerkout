@@ -9,29 +9,63 @@ interface NewSplitProps {
   setColor: () => void;
 }
 
-interface Days {
+export interface Day {
   name: string;
   workoutIds: string[];
 }
 
 export interface Split {
   name: string;
-  days: Days[];
+  days: Day[];
 }
 
 const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const MAX_TITLE: number = 16;
+  const MAX_DAYS: number = 7;
 
   const defaultSplit: Split = {
     name: "",
-    days: [],
+    days: [{
+      name: "",
+      workoutIds: []
+    }],
   }
 
   const [split, setSplit] = useState<Split>(defaultSplit);
 
   const handleChangeName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if(e.target.value.length <= MAX_TITLE) {
-      setSplit(prev => ({...prev, name: e.target.value}));
+      setSplit(prev => ({...prev, name: e.target.value.toLocaleUpperCase()}));
+    }
+  }
+
+  const handleAddDay: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setSplit(prev => {
+      const temp: Day[] = [...prev.days];
+
+      if(temp.length < MAX_DAYS){
+        temp.push({
+          name: "",
+          workoutIds: []
+        });
+      }
+
+
+      return {...prev, days: temp};
+    });
+  }
+
+  const handleChangeDayName = (index: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
+    if(e.target.value.length <= MAX_TITLE) {
+      setSplit(prev => {
+        const temp: Day[] = prev.days;
+        temp[index].name = e.target.value;
+
+        return {
+          ...prev,
+          days: temp
+        }
+      });
     }
   }
 
@@ -48,6 +82,8 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
           split = {split}
           handleChangeName = {handleChangeName}
           MAX_TITLE = {MAX_TITLE}
+          handleAddDay = {handleAddDay}
+          handleChangeDayName = {handleChangeDayName}
         />
       </SplitContainer>
 
