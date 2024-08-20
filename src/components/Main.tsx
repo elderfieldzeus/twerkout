@@ -28,7 +28,7 @@ const Main: React.FC<MainProps> = ({ children, header, Extra }) => {
         {header}
       </p>
       {Extra}
-      <main className="h-full w-full px-5 py-16">{children}</main>
+      <main className="h-full w-full px-5 pt-16 pb-20">{children}</main>
     </div>
   );
 };
