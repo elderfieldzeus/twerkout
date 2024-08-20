@@ -1,10 +1,10 @@
 import React from 'react'
 
-interface CurrentSplitContainerProps {
+interface SplitContainerProps {
     children?: React.ReactNode
 }
 
-const CurrentSplitContainer: React.FC<CurrentSplitContainerProps> = ({ children }) => {
+const SplitContainer: React.FC<SplitContainerProps> = ({ children }) => {
   return (
     <div className='w-full h-[32rem] border-2 border-black rounded-lg p-4 shadow-xl'>
         {children}
@@ -12,4 +12,4 @@ const CurrentSplitContainer: React.FC<CurrentSplitContainerProps> = ({ children 
   )
 }
 
-export default CurrentSplitContainer
+export default SplitContainer

@@ -796,18 +796,6 @@ video {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-cols-\[repeat\(auto-fill\2c _minmax\(3rem\2c _1fr\)\)\] {
-  grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
-}
-
-.grid-cols-\[repeat\(auto-fill\2c _minmax\(4rem\2c _1fr\)\)\] {
-  grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
-}
-
-.grid-cols-\[repeat\(auto-fill\2c _minmax\(5rem\2c _1fr\)\)\] {
-  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
-}
-
 .grid-cols-\[repeat\(auto-fill\2c _minmax\(6rem\2c _1fr\)\)\] {
   grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
 }
@@ -1176,6 +1164,11 @@ video {
 
 .hover\:cursor-pointer:hover {
   cursor: pointer;
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .focus\:outline-yellow-400:focus {

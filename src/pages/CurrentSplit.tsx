@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import Main from "../components/Main";
-import AddSplitButton from "../components/Split/AddSplitButton";
+import SplitButton from "../components/Split/SplitButton";
 import { useNavigate } from "react-router-dom";
-import CurrentSplitContainer from "../components/Split/CurrentSplitContainer";
+import SplitContainer from "../components/Split/SplitContainer";
 import CurrentSplitContent from "../components/Split/CurrentSplitContent";
+import { MdAddCircle } from "react-icons/md";
 
 interface CurrentSplitProps {
   setColor: () => void;
@@ -24,12 +25,14 @@ const CurrentSplit: React.FC<CurrentSplitProps> = ({ setColor }) => {
     <Main
       header="Your Split"
     >
-      <CurrentSplitContainer>
+      <SplitContainer>
         <CurrentSplitContent />
-      </CurrentSplitContainer>
+      </SplitContainer>
 
-      <AddSplitButton
+      <SplitButton
+        content="Create New Split"
         handleOpen = {handleOpen}
+        Icon = {MdAddCircle}
       />
     </Main>
   );
