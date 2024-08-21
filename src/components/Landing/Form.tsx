@@ -22,11 +22,11 @@ const Form: React.FC<FormProps> = ({ active }) => {
     }
   }, [active]);
 
-  const formBodyClass = `${appear ? "opacity-100" : "opacity-0"} transition-all duration-500 pt-10 px-5 flex flex-col items-center font-medium gap-2`;
+  const formBodyClass = `${appear ? "opacity-100" : "opacity-0"} transition-all duration-500 pt-10 px-5 flex flex-col items-center font-medium gap-2 max-w-[30rem] w-full`;
 
   return (
     <div
-      className={`${active ? "h-[80vh]" : "h-0"} w-full rounded-t-xl bg-white shadow-xl transition-all duration-500`}
+      className={`${active ? "h-[80vh]" : "h-0"} w-full rounded-t-xl bg-white shadow-xl transition-all duration-500 flex justify-center`}
     >
       {signUp || <Login className={formBodyClass} changeForm={changeForm} />}
       {signUp && <Signup className={formBodyClass} changeForm={changeForm} />}
