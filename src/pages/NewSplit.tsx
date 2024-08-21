@@ -42,6 +42,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const handleAddDay: React.MouseEventHandler<HTMLButtonElement> = () => {
     setSplit(prev => {
       const temp: Day[] = [...prev.days];
+      console.log("DONE");
 
       if(temp.length < MAX_DAYS){
         temp.push({
@@ -49,7 +50,6 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
           workoutIds: []
         });
       }
-
 
       return {...prev, days: temp};
     });
@@ -71,15 +71,16 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
 
   const handleAddWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
     setSplit(prev => {
-      const temp: string[] = [...prev.days[index].workoutIds];
+      const daysTemp: Day[] = [...prev.days];
+      const workoutsTemp: string[] = [...prev.days[index].workoutIds];
 
-      temp.push("");
+      workoutsTemp.push("");
 
-      prev.days[index].workoutIds = temp;
+      daysTemp[index] = {...daysTemp[index], workoutIds: workoutsTemp};
 
       return {
         ...prev,
-        days: prev.days
+        days: daysTemp
       }
     });
   }
