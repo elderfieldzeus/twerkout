@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { Day } from '../../pages/NewSplit'
 import HorizontalBar from '../HorizontalBar';
 import DropdownButton from '../DropdownButton';
+import DayButton from './DayButton';
 
 interface DayInputProps {
     day: Day;
-    handleChange: React.ChangeEventHandler<HTMLInputElement>
+    handleChange: React.ChangeEventHandler<HTMLInputElement>;
+    handleAdd: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const DayInput: React.FC<DayInputProps> = ({ day, handleChange }) => {
+const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const toggleShow: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -16,7 +18,7 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange }) => {
     }
 
   return (
-    <>
+    <div>
         <HorizontalBar />
         <div>
             <div className='flex justify-between items-center'>
@@ -35,14 +37,28 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange }) => {
             {
                     show 
                     &&
-                    <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] gap-6'>
-                        {day.workoutIds.map(workout => {
-                            return <li>{workout}</li>
-                        })}
-                    </ul>
+                    <>
+                        <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] gap-6'>
+                            {day.workoutIds.map((workout, index) => {
+                                return <li key = {index}>{workout}</li>
+                            })}
+                        </ul>
+                        <div className='flex gap-2 my-2'>
+                            <DayButton
+                                type='Add'
+                                handleClick={handleAdd}
+                            />
+
+                            <DayButton
+                                type='Delete'
+                                handleClick={alert}
+                            />
+                        </div>
+                    </>
+                    
             }
         </div>
-    </>
+    </div>
   )
 }
 

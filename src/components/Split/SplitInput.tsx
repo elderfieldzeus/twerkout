@@ -2,6 +2,7 @@ import React from 'react'
 import { Split } from '../../pages/NewSplit'
 import TitleInput from './TitleInput';
 import DayInput from './DayInput';
+import AddDayButton from './AddDayButton';
 
 interface SplitInputProps {
     split: Split;
@@ -9,11 +10,12 @@ interface SplitInputProps {
     MAX_TITLE: number;
     handleAddDay: React.MouseEventHandler<HTMLButtonElement>;
     handleChangeDayName: (index: number) => React.ChangeEventHandler<HTMLInputElement>;
+    handleAddWorkout: (index: number) => React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE, handleAddDay, handleChangeDayName }) => {
+const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE, handleAddDay, handleChangeDayName, handleAddWorkout }) => {
   return (
-    <div>
+    <div className='h-full'>
         <TitleInput
             handleChangeName={handleChangeName}
             name={split.name}
@@ -22,16 +24,18 @@ const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TI
 
         {split.days.map((day, index) => {
             return (
-            <>
                 <DayInput 
                     key = {index}
                     day = {day}
                     handleChange = {handleChangeDayName(index)}
-                />
-            </>)
+                    handleAdd = {handleAddWorkout(index)}
+                />)
         })}
 
-        <button onClick={handleAddDay} className='size-10 bg-green-400 rounded-full'>+</button>
+
+        <AddDayButton 
+            handleAddDay={handleAddDay}
+        />
     </div>
   )
 }

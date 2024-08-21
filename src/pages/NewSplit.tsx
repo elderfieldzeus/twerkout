@@ -69,6 +69,21 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     }
   }
 
+  const handleAddWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
+    setSplit(prev => {
+      const temp: string[] = [...prev.days[index].workoutIds];
+
+      temp.push("");
+
+      prev.days[index].workoutIds = temp;
+
+      return {
+        ...prev,
+        days: prev.days
+      }
+    });
+  }
+
   useEffect(() => {
     setColor();
   }, [setColor]);
@@ -78,12 +93,13 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
       header="New Split"
     >
       <SplitContainer>
-        <SplitInput 
+        <SplitInput
           split = {split}
           handleChangeName = {handleChangeName}
           MAX_TITLE = {MAX_TITLE}
           handleAddDay = {handleAddDay}
           handleChangeDayName = {handleChangeDayName}
+          handleAddWorkout = {handleAddWorkout}
         />
       </SplitContainer>
 
