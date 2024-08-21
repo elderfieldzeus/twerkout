@@ -6,7 +6,7 @@ interface FilterProps {
 
 const Filter: React.FC<FilterProps> = ({ children }) => {
   return (
-    <div className="fixed z-20 flex h-screen w-full items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed z-50 flex h-screen w-full items-center justify-center bg-black bg-opacity-50">
       {children}
     </div>
   );

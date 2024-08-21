@@ -17,6 +17,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <input
+      id = {type}
       type={type}
       className="h-12 w-full rounded-lg bg-gray-100 px-4 focus:outline-yellow-400"
       placeholder={placeholder}

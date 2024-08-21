@@ -40,6 +40,7 @@ const AddNote: React.FC<AddNoteProps> = ({ handleClose }) => {
   return (
     <Notepad handleClose={handleClose}>
       <input
+        id="title"
         type="text"
         className="m-2 w-[calc(100%-1rem)] rounded-none border-b-2 p-1 font-medium outline-none"
         placeholder="Title"
@@ -49,6 +50,7 @@ const AddNote: React.FC<AddNoteProps> = ({ handleClose }) => {
 
       <div className="relative h-1/2 w-[calc(100%-1rem)]">
         <textarea
+          id="note"
           value={content}
           onChange={handleChangeContent}
           className="m-2 h-full w-full resize-none rounded-md p-1 font-medium outline-none"

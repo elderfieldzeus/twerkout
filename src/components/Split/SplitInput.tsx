@@ -26,6 +26,7 @@ const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TI
             return (
                 <DayInput 
                     key = {index}
+                    index = {index}
                     day = {day}
                     handleChange = {handleChangeDayName(index)}
                     handleAdd = {handleAddWorkout(index)}

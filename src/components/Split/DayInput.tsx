@@ -8,9 +8,10 @@ interface DayInputProps {
     day: Day;
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
     handleAdd: React.MouseEventHandler<HTMLButtonElement>;
+    index: number;
 }
 
-const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd }) => {
+const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const toggleShow: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -23,6 +24,7 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd }) => 
         <div>
             <div className='flex justify-between items-center'>
                 <input
+                    id={`day` + index}
                     className='font-coffee focus:outline-none w-full'
                     placeholder='DAY'
                     value={day.name}
@@ -42,7 +44,7 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd }) => 
                             {day.workoutIds.map((workout, index) => {
                                 return (
                                 <li key = {index}>
-                                    <input type="text" className='w-full' placeholder={workout} />  
+                                    <input id={`workout` + index} type="text" className='w-full' placeholder={workout} />  
                                 </li>
                                 );
                             })}

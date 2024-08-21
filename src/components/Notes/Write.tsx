@@ -29,7 +29,7 @@ const Write: React.FC<WriteProps> = ({ noteCount }) => {
     <>
       <div
         onClick={handleOpen}
-        className="fixed right-5 flex h-12 items-center justify-center hover:cursor-pointer active:text-yellow-600"
+        className="fixed right-5 flex h-12 items-center justify-center hover:cursor-pointer active:text-yellow-600 z-30"
       >
         <FaPenToSquare className="size-6" />
       </div>

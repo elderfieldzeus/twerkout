@@ -10,6 +10,7 @@ const TitleInput: React.FC<TitleInputProps> = ({handleChangeName, name, MAX_TITL
   return (
     <div className='relative'>
         <input
+                id='title'
                 type="text"
                 onChange={handleChangeName}
                 value={name}
