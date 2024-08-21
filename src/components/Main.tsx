@@ -22,13 +22,13 @@ const Main: React.FC<MainProps> = ({ children, header, Extra }) => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen w-full bg-white">
+    <div className="min-h-screen w-full bg-white flex justify-center">
       <Navbar />
       <p className="fixed top-0 flex h-14 w-full items-center bg-white px-5 font-coffee text-2xl z-30">
         {header}
       </p>
       {Extra}
-      <main className="h-full w-full px-5 pt-16 pb-24">{children}</main>
+      <main className="h-full max-w-[30rem] w-full px-5 pt-16 pb-24">{children}</main>
     </div>
   );
 };
