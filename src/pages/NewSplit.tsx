@@ -42,7 +42,6 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const handleAddDay: React.MouseEventHandler<HTMLButtonElement> = () => {
     setSplit(prev => {
       const temp: Day[] = [...prev.days];
-      console.log("DONE");
 
       if(temp.length < MAX_DAYS){
         temp.push({

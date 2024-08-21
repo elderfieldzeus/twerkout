@@ -40,7 +40,11 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd }) => 
                     <>
                         <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] gap-6'>
                             {day.workoutIds.map((workout, index) => {
-                                return <li key = {index}>{workout}</li>
+                                return (
+                                <li key = {index}>
+                                    <input type="text" className='w-full' placeholder={workout} />  
+                                </li>
+                                );
                             })}
                         </ul>
                         <div className='flex gap-2 my-2'>
