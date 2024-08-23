@@ -97,6 +97,22 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     });
   }
 
+  const handleChangeWorkout = (dayIndex: number) => (workoutIndex: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
+    setSplit(prev => {
+      const daysTemp: Day[] = [...prev.days];
+      const workoutsTemp: string[] = [...prev.days[dayIndex].workoutIds];
+
+      workoutsTemp[workoutIndex] = e.target.value;
+
+      daysTemp[dayIndex].workoutIds = [...workoutsTemp];
+
+      return {
+        ...prev,
+        days: daysTemp
+      }
+    })
+  }
+
   useEffect(() => {
     setColor();
   }, [setColor]);
@@ -114,6 +130,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
           handleChangeDayName = {handleChangeDayName}
           handleAddWorkout = {handleAddWorkout}
           handleDeleteDay = {handleDeleteDay}
+          handleChangeWorkout = {handleChangeWorkout}
         />
       </SplitContainer>
 

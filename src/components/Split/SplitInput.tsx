@@ -12,9 +12,10 @@ interface SplitInputProps {
     handleChangeDayName: (index: number) => React.ChangeEventHandler<HTMLInputElement>;
     handleAddWorkout: (index: number) => React.MouseEventHandler<HTMLButtonElement>;
     handleDeleteDay: (index: number) => () => void;
+    handleChangeWorkout: (dayIndex: number) => (workoutIndex: number) => React.ChangeEventHandler<HTMLInputElement>
 }
 
-const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE, handleAddDay, handleChangeDayName, handleAddWorkout, handleDeleteDay }) => {
+const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE, handleAddDay, handleChangeDayName, handleAddWorkout, handleDeleteDay, handleChangeWorkout }) => {
     const [showArray, setShowArray] = useState<boolean[]>([]);
 
     const changeShow = (index: number) => () => {
@@ -36,7 +37,7 @@ const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TI
     }
 
   return (
-    <div className='h-full'>
+    <div className='h-full pb-16'>
         <TitleInput
             handleChangeName={handleChangeName}
             name={split.name}
@@ -55,6 +56,7 @@ const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TI
                     show = {showArray[index]}
                     toggleShow = {changeShow(index)}
                     deleteShow = {deleteShow(index)}
+                    handleChangeWorkout = {handleChangeWorkout(index)}
                 />)
         })}
 

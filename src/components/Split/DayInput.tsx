@@ -13,9 +13,10 @@ interface DayInputProps {
     show: boolean;
     toggleShow: () => void;
     deleteShow: () => void;
+    handleChangeWorkout: (workoutIndex: number) => React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index, handleDelete, show,  toggleShow, deleteShow }) => {
+const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index, handleDelete, show,  toggleShow, deleteShow, handleChangeWorkout }) => {
     const handleDeleteAndHide: React.MouseEventHandler<HTMLButtonElement> = () => {
         deleteShow();
         handleDelete();
@@ -43,11 +44,16 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index
                     show 
                     &&
                     <>
-                        <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] gap-6'>
+                        <ul className='text-sm font-medium list-disc px-6 w-full grid grid-cols-2 gap-x-10 gap-y-4'>
                             {day.workoutIds.map((workout, index) => {
                                 return (
                                 <li key = {index}>
-                                    <input id={`workout` + index} type="text" className='w-full' placeholder={workout} />  
+                                    <input 
+                                        id={`workout` + index} 
+                                        className='w-full text-gray-500 outline-none border-none'
+                                        value={workout}
+                                        onChange={handleChangeWorkout(index)}
+                                    />
                                 </li>
                                 );
                             })}
