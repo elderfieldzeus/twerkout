@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Split } from '../../pages/NewSplit'
 import TitleInput from './TitleInput';
 import DayInput from './DayInput';
@@ -11,9 +11,30 @@ interface SplitInputProps {
     handleAddDay: React.MouseEventHandler<HTMLButtonElement>;
     handleChangeDayName: (index: number) => React.ChangeEventHandler<HTMLInputElement>;
     handleAddWorkout: (index: number) => React.MouseEventHandler<HTMLButtonElement>;
+    handleDeleteDay: (index: number) => () => void;
 }
 
-const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE, handleAddDay, handleChangeDayName, handleAddWorkout }) => {
+const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TITLE, handleAddDay, handleChangeDayName, handleAddWorkout, handleDeleteDay }) => {
+    const [showArray, setShowArray] = useState<boolean[]>([]);
+
+    const changeShow = (index: number) => () => {
+        setShowArray((prev) => {
+            const temp = [...prev];
+            temp[index] = !temp[index];
+
+            return [...temp];
+        })
+    }
+
+    const deleteShow = (index: number) => () => {
+        setShowArray((prev) => {
+            const temp = [...prev];
+            temp.splice(index, 1);
+
+            return [...temp];
+        })
+    }
+
   return (
     <div className='h-full'>
         <TitleInput
@@ -30,6 +51,10 @@ const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TI
                     day = {day}
                     handleChange = {handleChangeDayName(index)}
                     handleAdd = {handleAddWorkout(index)}
+                    handleDelete = {handleDeleteDay(index)}
+                    show = {showArray[index]}
+                    toggleShow = {changeShow(index)}
+                    deleteShow = {deleteShow(index)}
                 />)
         })}
 

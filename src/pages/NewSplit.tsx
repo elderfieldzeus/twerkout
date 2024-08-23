@@ -54,6 +54,19 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     });
   }
 
+  const handleDeleteDay = (index: number) => (): void  => {
+    setSplit(prev => {
+      const temp: Day[] = [...prev.days];
+      
+      temp.splice(index, 1);
+
+      return {
+        ...prev,
+        days: temp
+      }
+    })
+  }
+
   const handleChangeDayName = (index: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
     if(e.target.value.length <= MAX_TITLE) {
       setSplit(prev => {
@@ -100,6 +113,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
           handleAddDay = {handleAddDay}
           handleChangeDayName = {handleChangeDayName}
           handleAddWorkout = {handleAddWorkout}
+          handleDeleteDay = {handleDeleteDay}
         />
       </SplitContainer>
 

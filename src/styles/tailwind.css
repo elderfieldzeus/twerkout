@@ -789,26 +789,6 @@ video {
   width: 100%;
 }
 
-.max-w-\[1300px\] {
-  max-width: 1300px;
-}
-
-.max-w-\[1000px\] {
-  max-width: 1000px;
-}
-
-.max-w-\[600px\] {
-  max-width: 600px;
-}
-
-.max-w-\[500px\] {
-  max-width: 500px;
-}
-
-.max-w-\[32rem\] {
-  max-width: 32rem;
-}
-
 .max-w-\[30rem\] {
   max-width: 30rem;
 }

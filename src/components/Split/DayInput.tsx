@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Day } from '../../pages/NewSplit'
 import HorizontalBar from '../HorizontalBar';
 import DropdownButton from '../DropdownButton';
@@ -9,13 +9,16 @@ interface DayInputProps {
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
     handleAdd: React.MouseEventHandler<HTMLButtonElement>;
     index: number;
+    handleDelete: (() => void);
+    show: boolean;
+    toggleShow: () => void;
+    deleteShow: () => void;
 }
 
-const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index }) => {
-    const [show, setShow] = useState<boolean>(false);
-
-    const toggleShow: React.MouseEventHandler<HTMLButtonElement> = () => {
-        setShow(prev => !prev);
+const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index, handleDelete, show,  toggleShow, deleteShow }) => {
+    const handleDeleteAndHide: React.MouseEventHandler<HTMLButtonElement> = () => {
+        deleteShow();
+        handleDelete();
     }
 
   return (
@@ -57,7 +60,7 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index
 
                             <DayButton
                                 type='Delete'
-                                handleClick={alert}
+                                handleClick={handleDeleteAndHide}
                             />
                         </div>
                     </>
