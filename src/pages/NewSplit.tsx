@@ -113,6 +113,22 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     })
   }
 
+  // const handleDeleteWorkout = (dayIndex: number) => (workoutIndex: number): React.MouseEventHandler<HTMLButtonElement> => () => {
+  //   setSplit(prev => {
+  //     const daysTemp: Day[] = [...prev.days];
+  //     const workoutsTemp: string[] = [...prev.days[dayIndex].workoutIds];
+
+  //     workoutsTemp.splice(workoutIndex, 1);
+
+  //     daysTemp[dayIndex].workoutIds = [...workoutsTemp];
+
+  //     return {
+  //       ...prev,
+  //       days: daysTemp
+  //     }
+  //   })
+  // }
+
   useEffect(() => {
     setColor();
   }, [setColor]);
