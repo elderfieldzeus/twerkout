@@ -14,9 +14,10 @@ interface DayInputProps {
     toggleShow: () => void;
     deleteShow: () => void;
     handleChangeWorkout: (workoutIndex: number) => React.ChangeEventHandler<HTMLInputElement>;
+    handleDeleteWorkout: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index, handleDelete, show,  toggleShow, deleteShow, handleChangeWorkout }) => {
+const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index, handleDelete, show,  toggleShow, deleteShow, handleChangeWorkout, handleDeleteWorkout }) => {
     const handleDeleteAndHide: React.MouseEventHandler<HTMLButtonElement> = () => {
         deleteShow();
         handleDelete();
@@ -67,6 +68,11 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index
                             <DayButton
                                 type='Delete'
                                 handleClick={handleDeleteAndHide}
+                            />
+
+                            <DayButton
+                                type='Subtract'
+                                handleClick={handleDeleteWorkout}
                             />
                         </div>
                     </>

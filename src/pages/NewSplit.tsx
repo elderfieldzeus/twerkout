@@ -113,21 +113,21 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     })
   }
 
-  // const handleDeleteWorkout = (dayIndex: number) => (workoutIndex: number): React.MouseEventHandler<HTMLButtonElement> => () => {
-  //   setSplit(prev => {
-  //     const daysTemp: Day[] = [...prev.days];
-  //     const workoutsTemp: string[] = [...prev.days[dayIndex].workoutIds];
+  const handleDeleteWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
+    setSplit(prev => {
+      const daysTemp: Day[] = [...prev.days];
+      const workoutsTemp: string[] = [...prev.days[index].workoutIds];
 
-  //     workoutsTemp.splice(workoutIndex, 1);
+      workoutsTemp.splice(-1, 1);
 
-  //     daysTemp[dayIndex].workoutIds = [...workoutsTemp];
+      daysTemp[index] = {...daysTemp[index], workoutIds: workoutsTemp};
 
-  //     return {
-  //       ...prev,
-  //       days: daysTemp
-  //     }
-  //   })
-  // }
+      return {
+        ...prev,
+        days: daysTemp
+      }
+    })
+  }
 
   useEffect(() => {
     setColor();
@@ -147,6 +147,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
           handleAddWorkout = {handleAddWorkout}
           handleDeleteDay = {handleDeleteDay}
           handleChangeWorkout = {handleChangeWorkout}
+          handleDeleteWorkout = {handleDeleteWorkout}
         />
       </SplitContainer>
 
