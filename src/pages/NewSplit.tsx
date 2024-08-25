@@ -4,6 +4,10 @@ import SplitContainer from "../components/Split/SplitContainer";
 import SplitButton from "../components/Split/SplitButton";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import SplitInput from "../components/Split/SplitInput";
+import { User } from "firebase/auth";
+import { auth } from "../utilities/firebase";
+import { postSplit } from "../utilities/post";
+import { useNavigate } from "react-router-dom";
 
 interface NewSplitProps {
   setColor: () => void;
@@ -11,7 +15,7 @@ interface NewSplitProps {
 
 export interface Day {
   name: string;
-  workoutIds: string[];
+  workouts: string[];
 }
 
 export interface Split {
@@ -27,11 +31,17 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     name: "",
     days: [{
       name: "",
-      workoutIds: []
+      workouts: []
     }],
   }
 
   const [split, setSplit] = useState<Split>(defaultSplit);
+  const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setUser(auth.currentUser);
+  }, []);
 
   const handleChangeName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if(e.target.value.length <= MAX_TITLE) {
@@ -46,7 +56,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
       if(temp.length < MAX_DAYS){
         temp.push({
           name: "",
-          workoutIds: []
+          workouts: []
         });
       }
 
@@ -84,11 +94,11 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const handleAddWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
     setSplit(prev => {
       const daysTemp: Day[] = [...prev.days];
-      const workoutsTemp: string[] = [...prev.days[index].workoutIds];
+      const workoutsTemp: string[] = [...prev.days[index].workouts];
 
       workoutsTemp.push("");
 
-      daysTemp[index] = {...daysTemp[index], workoutIds: workoutsTemp};
+      daysTemp[index] = {...daysTemp[index], workouts: workoutsTemp};
 
       return {
         ...prev,
@@ -100,11 +110,11 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const handleChangeWorkout = (dayIndex: number) => (workoutIndex: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
     setSplit(prev => {
       const daysTemp: Day[] = [...prev.days];
-      const workoutsTemp: string[] = [...prev.days[dayIndex].workoutIds];
+      const workoutsTemp: string[] = [...prev.days[dayIndex].workouts];
 
       workoutsTemp[workoutIndex] = e.target.value;
 
-      daysTemp[dayIndex].workoutIds = [...workoutsTemp];
+      daysTemp[dayIndex].workouts = [...workoutsTemp];
 
       return {
         ...prev,
@@ -116,17 +126,43 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const handleDeleteWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
     setSplit(prev => {
       const daysTemp: Day[] = [...prev.days];
-      const workoutsTemp: string[] = [...prev.days[index].workoutIds];
+      const workoutsTemp: string[] = [...prev.days[index].workouts];
 
       workoutsTemp.splice(-1, 1);
 
-      daysTemp[index] = {...daysTemp[index], workoutIds: workoutsTemp};
+      daysTemp[index] = {...daysTemp[index], workouts: workoutsTemp};
 
       return {
         ...prev,
         days: daysTemp
       }
     })
+  }
+
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
+    let isValid = true;
+
+    if(split.name === '' || split.days.length === 0) isValid = false;
+
+    split.days.forEach((day) => {
+      if(split.name === '' || day.workouts.length === 0) isValid = false;
+      day.workouts.forEach((workout) => {
+        if(workout === '') isValid = false;
+      })
+    })
+    
+    if(user !== null && isValid) {
+      if(!postSplit(split, user.uid)) {
+        alert("ERROR");
+      }
+      else {
+        navigate("/split/current")
+      }
+    }
+
+    if(!isValid) {
+      alert("LACKING INPUT");
+    }
   }
 
   useEffect(() => {
@@ -153,7 +189,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
 
       <SplitButton
         content="Save Split"
-        handleOpen = {alert}
+        handleOpen = {handleSubmit}
         Icon={MdOutlineSaveAlt}
       />
     </Main>

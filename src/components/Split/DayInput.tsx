@@ -47,7 +47,7 @@ const DayInput: React.FC<DayInputProps> = ({ day, handleChange, handleAdd, index
                     &&
                     <>
                         <ul className='text-sm font-medium list-disc text-gray-400 px-6 w-full grid grid-cols-2 gap-x-10'>
-                            {day.workoutIds.map((workout, index) => {
+                            {day.workouts.map((workout, index) => {
                                 return (
                                 <li key = {index}>
                                     <WorkoutInput
