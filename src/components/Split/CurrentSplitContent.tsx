@@ -10,7 +10,7 @@ interface CurrentSplitContentProps {
 const CurrentSplitContent: React.FC<CurrentSplitContentProps> = ({split}) => {
   return (
     <div className='w-full'>
-          <p className='font-coffee text-xl w-full text-center'>{split.name}</p>
+          <p className={`font-coffee text-xl w-full text-center ${split.name || 'text-gray-400'}`}>{split.name ? split.name : 'NO SPLIT YET'}</p>
 
           {split.days.map((day, index) => {
             return (

@@ -81,7 +81,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     if(e.target.value.length <= MAX_TITLE) {
       setSplit(prev => {
         const temp: Day[] = prev.days;
-        temp[index].name = e.target.value;
+        temp[index].name = e.target.value.toLocaleUpperCase();
 
         return {
           ...prev,
@@ -108,19 +108,22 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   }
 
   const handleChangeWorkout = (dayIndex: number) => (workoutIndex: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
-    setSplit(prev => {
-      const daysTemp: Day[] = [...prev.days];
-      const workoutsTemp: string[] = [...prev.days[dayIndex].workouts];
+    if(e.target.value.length < MAX_TITLE) {
+      setSplit(prev => {
+        const daysTemp: Day[] = [...prev.days];
+        const workoutsTemp: string[] = [...prev.days[dayIndex].workouts];
 
-      workoutsTemp[workoutIndex] = e.target.value;
+        
+        workoutsTemp[workoutIndex] = e.target.value.toLocaleUpperCase();
 
-      daysTemp[dayIndex].workouts = [...workoutsTemp];
+        daysTemp[dayIndex].workouts = [...workoutsTemp];
 
-      return {
-        ...prev,
-        days: daysTemp
-      }
-    })
+        return {
+          ...prev,
+          days: daysTemp
+        }
+      });
+    }
   }
 
   const handleDeleteWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {

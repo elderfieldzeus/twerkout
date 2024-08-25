@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-interface CurrentSplitButton {}
+interface CurrentSplitButton {
+  name: string | null;
+}
 
-const CurrentSplitButton: React.FC<CurrentSplitButton> = () => {
+const CurrentSplitButton: React.FC<CurrentSplitButton> = ({name}) => {
   const navigate = useNavigate();
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -17,7 +19,7 @@ const CurrentSplitButton: React.FC<CurrentSplitButton> = () => {
     >
       <div className="pt-6 text-start">
         <p>Your current split:</p>
-        <p className="text-gray-600">N/A</p>
+        <p className="text-gray-600">{name ? name : 'N/A'}</p>
       </div>
       <img
         className="h-full select-none"
