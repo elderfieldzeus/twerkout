@@ -1,33 +1,28 @@
 import React from 'react'
 import Day from './Day'
 import HorizontalBar from '../HorizontalBar';
+import { Split } from '../../pages/NewSplit';
 
-const CurrentSplitContent: React.FC = () => {
+interface CurrentSplitContentProps {
+  split: Split;
+}
+
+const CurrentSplitContent: React.FC<CurrentSplitContentProps> = ({split}) => {
   return (
     <div className='w-full'>
-          <p className='font-coffee text-xl w-full text-center'>PUSH PULL LEGS</p>
+          <p className='font-coffee text-xl w-full text-center'>{split.name}</p>
 
-          <HorizontalBar />
-          
-          <Day
-            title='Push'
-            workouts={['Bench Press', 'Kevin Durant']}
-          />
-
-          <HorizontalBar />
-          
-          <Day
-            title='Pull'
-            workouts={['Lat Pulldown']}
-          />
-          
-          <HorizontalBar />
-          
-          <Day
-            title='Legs'
-            workouts={['Leg Press']}
-          />
-
+          {split.days.map((day, index) => {
+            return (
+              <div key = {index}>
+                <HorizontalBar />
+                <Day
+                  title={day.name}
+                  workouts={day.workouts}
+                />
+              </div>
+            );
+          })}
     </div>
   )
 }

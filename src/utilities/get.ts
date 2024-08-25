@@ -51,7 +51,7 @@ export async function getCurrentSplit(
     const q = query(
       collection(database, "split"),
       where("userid", "==", userID),
-      where("isActive", "==", "true"),
+      where("isActive", "==", true),
       orderBy("createdAt", "desc"),
       limit(1),
     );
