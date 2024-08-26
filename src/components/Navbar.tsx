@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
     };
 
   return (
-    <div className="fixed bottom-0 left-1/2 z-10 flex h-16 w-[calc(100%+0.3rem)] -translate-x-1/2 justify-evenly rounded-t-lg border-t-2 border-black bg-[#fdeba1] shadow-lg">
+    <div className="fixed bottom-0 left-1/2 z-10 flex h-16 w-[calc(100%+0.3rem)] -translate-x-1/2 justify-evenly rounded-t-lg border-t-2 border-black bg-[#EFC94C] shadow-lg">
       <MainButton handleOnClick={goto("gym")} />
 
       <SideButton
