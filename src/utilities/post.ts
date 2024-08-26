@@ -1,6 +1,9 @@
 import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { database } from "./firebase";
 import { Split } from "../pages/NewSplit";
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
 
 export async function postNote(title: string, content: string, userid: string) {
   try {
@@ -36,7 +39,9 @@ export async function postSplit(split: Split, uid: string) {
       createdAt: new Date(),
       userid: uid,
       isActive: true
-    })
+    });
+
+    navigate('/split/current');
     return true;
   }
   catch(e) {
