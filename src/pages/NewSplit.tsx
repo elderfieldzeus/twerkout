@@ -8,6 +8,7 @@ import { User } from "firebase/auth";
 import { auth } from "../utilities/firebase";
 import { postSplit } from "../utilities/post";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../components/LoadingScreen";
 
 interface NewSplitProps {
   setColor: () => void;
@@ -37,6 +38,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
 
   const [split, setSplit] = useState<Split>(defaultSplit);
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -143,6 +145,23 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   }
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
+    async function handlePost(user: User) {
+      try {
+        const result = await postSplit(split, user.uid);
+        if(result === true) {
+          setLoading(false);
+          navigate("/split/current");
+        }
+        else {
+          alert("Error in posting data.");
+        }
+      }
+      catch(e) {
+        console.log(e);
+      }
+    }
+
+    setLoading(true);
     let isValid = true;
 
     if(split.name === '' || split.days.length === 0) isValid = false;
@@ -155,12 +174,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     })
     
     if(user !== null && isValid) {
-      if(!postSplit(split, user.uid)) {
-        alert("ERROR");
-      }
-      else {
-        navigate("/split/current")
-      }
+      handlePost(user);
     }
 
     if(!isValid) {
@@ -176,25 +190,32 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     <Main
       header="New Split"
     >
-      <SplitContainer>
-        <SplitInput
-          split = {split}
-          handleChangeName = {handleChangeName}
-          MAX_TITLE = {MAX_TITLE}
-          handleAddDay = {handleAddDay}
-          handleChangeDayName = {handleChangeDayName}
-          handleAddWorkout = {handleAddWorkout}
-          handleDeleteDay = {handleDeleteDay}
-          handleChangeWorkout = {handleChangeWorkout}
-          handleDeleteWorkout = {handleDeleteWorkout}
+      {
+      loading
+      ?
+      <LoadingScreen />
+      :
+      <>
+        <SplitContainer>
+          <SplitInput
+            split = {split}
+            handleChangeName = {handleChangeName}
+            MAX_TITLE = {MAX_TITLE}
+            handleAddDay = {handleAddDay}
+            handleChangeDayName = {handleChangeDayName}
+            handleAddWorkout = {handleAddWorkout}
+            handleDeleteDay = {handleDeleteDay}
+            handleChangeWorkout = {handleChangeWorkout}
+            handleDeleteWorkout = {handleDeleteWorkout}
+          />
+        </SplitContainer>
+        <SplitButton
+          content="Save Split"
+          handleOpen = {handleSubmit}
+          Icon={MdOutlineSaveAlt}
         />
-      </SplitContainer>
-
-      <SplitButton
-        content="Save Split"
-        handleOpen = {handleSubmit}
-        Icon={MdOutlineSaveAlt}
-      />
+      </>
+      }
     </Main>
   );
 };
