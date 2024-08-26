@@ -1,6 +1,6 @@
 import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { database } from "./firebase";
-import { Split } from "../pages/NewSplit";
+import { Split } from "../pages/Split/NewSplit";
 
 export async function postNote(title: string, content: string, userid: string) {
   try {

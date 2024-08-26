@@ -1,7 +1,7 @@
 import React from 'react'
 import Day from './Day'
 import HorizontalBar from '../HorizontalBar';
-import { Split } from '../../pages/NewSplit';
+import { Split } from '../../pages/Split/NewSplit';
 
 interface CurrentSplitContentProps {
   split: Split;

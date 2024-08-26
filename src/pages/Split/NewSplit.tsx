@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Main from "../components/Main";
-import SplitContainer from "../components/Split/SplitContainer";
-import SplitButton from "../components/Split/SplitButton";
+import Main from "../../components/Main";
+import SplitContainer from "../../components/Split/SplitContainer";
+import SplitButton from "../../components/Split/SplitButton";
 import { MdOutlineSaveAlt } from "react-icons/md";
-import SplitInput from "../components/Split/SplitInput";
+import SplitInput from "../../components/Split/SplitInput";
 import { User } from "firebase/auth";
-import { auth } from "../utilities/firebase";
-import { postSplit } from "../utilities/post";
+import { auth } from "../../utilities/firebase";
+import { postSplit } from "../../utilities/post";
 import { useNavigate } from "react-router-dom";
-import LoadingScreen from "../components/LoadingScreen";
+import LoadingScreen from "../../components/LoadingScreen";
 
 interface NewSplitProps {
   setColor: () => void;

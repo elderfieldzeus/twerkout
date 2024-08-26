@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Main from "../components/Main";
-import SplitButton from "../components/Split/SplitButton";
+import Main from "../../components/Main";
+import SplitButton from "../../components/Split/SplitButton";
 import { useNavigate } from "react-router-dom";
-import SplitContainer from "../components/Split/SplitContainer";
-import CurrentSplitContent from "../components/Split/CurrentSplitContent";
+import SplitContainer from "../../components/Split/SplitContainer";
+import CurrentSplitContent from "../../components/Split/CurrentSplitContent";
 import { MdAddCircle } from "react-icons/md";
 import { Day, Split } from "./NewSplit";
-import { auth } from "../utilities/firebase";
-import { getCurrentSplit } from "../utilities/get";
+import { auth } from "../../utilities/firebase";
+import { getCurrentSplit } from "../../utilities/get";
 import { User } from "firebase/auth";
-import LoadingScreen from "../components/LoadingScreen";
+import LoadingScreen from "../../components/LoadingScreen";
 
 interface CurrentSplitProps {
   setColor: () => void;

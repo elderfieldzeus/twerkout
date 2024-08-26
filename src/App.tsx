@@ -3,13 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/tailwind.css";
 import "./styles/input.css";
 import Landing from "./pages/Landing";
-import Gym from "./pages/Gym";
+import Workout from "./pages/Workout";
 import Split from "./pages/Split";
-import CurrentSplit from "./pages/CurrentSplit";
+import CurrentSplit from "./pages/Split/CurrentSplit";
 import Progress from "./pages/Progress";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
-import NewSplit from "./pages/NewSplit";
+import NewSplit from "./pages/Split/NewSplit";
 
 function App() {
   const [white, setWhite] = useState<boolean>(true);
@@ -32,7 +32,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<Landing setColor={setToYellow} />} />
-            <Route path="/gym" element={<Gym setColor={setToWhite} />} />
+            <Route path="/gym" element={<Workout setColor={setToWhite} />} />
             <Route path="/split" element={<Split setColor={setToWhite} />} />
             <Route
               path="/split/current"

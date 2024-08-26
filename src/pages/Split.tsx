@@ -3,7 +3,7 @@ import Main from "../components/Main";
 import CurrentSplitButton from "../components/Split/CurrentSplitButton";
 import PastSplits from "../components/Split/PastSplits";
 import { User } from "firebase/auth";
-import { Day, Split as Splits } from "./NewSplit";
+import { Day, Split as Splits } from "./Split/NewSplit";
 import { auth } from "../utilities/firebase";
 import { getCurrentSplit } from "../utilities/get";
 import LoadingScreen from "../components/LoadingScreen";
