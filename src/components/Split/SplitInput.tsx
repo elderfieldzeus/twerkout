@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Split } from '../../pages/NewSplit'
+import { Split } from '../../pages/Split/NewSplit'
 import TitleInput from './TitleInput';
 import DayInput from './DayInput';
 import AddDayButton from './AddDayButton';

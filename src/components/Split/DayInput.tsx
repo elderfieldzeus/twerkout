@@ -1,5 +1,5 @@
 import React from 'react'
-import { Day } from '../../pages/NewSplit'
+import { Day } from '../../pages/Split/NewSplit'
 import HorizontalBar from '../HorizontalBar';
 import DropdownButton from '../DropdownButton';
 import DayButton from './DayButton';
