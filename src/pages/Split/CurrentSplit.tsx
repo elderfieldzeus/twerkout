@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SplitContainer from "../../components/Split/SplitContainer";
 import CurrentSplitContent from "../../components/Split/CurrentSplitContent";
 import { MdAddCircle } from "react-icons/md";
-import { Day, Split } from "./NewSplit";
+import { Split } from "./NewSplit";
 import { auth } from "../../utilities/firebase";
 import { getCurrentSplit } from "../../utilities/get";
 import { User } from "firebase/auth";
@@ -20,7 +20,7 @@ const CurrentSplit: React.FC<CurrentSplitProps> = ({ setColor }) => {
     name: "",
     days: [{
       name: "",
-      workouts: []
+      exercises: []
     }],
   }
 
@@ -43,14 +43,13 @@ const CurrentSplit: React.FC<CurrentSplitProps> = ({ setColor }) => {
         if(user) {
           const currentSplit = await getCurrentSplit(user.uid);
           setLoading(false);
-          if(currentSplit && currentSplit[0].data) {
+          if(currentSplit) {
             const newSplit: Split = {
-              name: currentSplit[0].data.name as string,
-              days: currentSplit[0].data.days as Day[]
+              name: currentSplit.data.name,
+              days: currentSplit.data.days
             }
 
             setSplit(newSplit);
-            console.log(currentSplit);
           }
         }
       }

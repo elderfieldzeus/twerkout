@@ -60,15 +60,14 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
         if(user) {
           const currentSplit = await getCurrentSplit(user.uid);
           setLoading(false);
-          if(currentSplit && currentSplit[0].data) {
+          if(currentSplit) {
             const newSplit: Split = {
-              name: currentSplit[0].data.name as string,
-              days: currentSplit[0].data.days as Day[]
+              name: currentSplit.data.name,
+              days: currentSplit.data.days
             }
-            
-            setSplitId(currentSplit[0].id);
+
+            setSplitId(currentSplit.id);
             setSplit(newSplit);
-            console.log(currentSplit);
           }
         }
       }

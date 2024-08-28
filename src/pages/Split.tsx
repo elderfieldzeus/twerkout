@@ -3,7 +3,7 @@ import Main from "../components/Main";
 import CurrentSplitButton from "../components/Split/CurrentSplitButton";
 import PastSplits from "../components/Split/PastSplits";
 import { User } from "firebase/auth";
-import { Day, Split as Splits } from "./Split/NewSplit";
+import { Split as Splits } from "./Split/NewSplit";
 import { auth } from "../utilities/firebase";
 import { getCurrentSplit } from "../utilities/get";
 import LoadingScreen from "../components/LoadingScreen";
@@ -17,7 +17,7 @@ const Split: React.FC<SplitProps> = ({ setColor }) => {
     name: "",
     days: [{
       name: "",
-      workouts: []
+      exercises: []
     }],
   }
 
@@ -39,14 +39,13 @@ const Split: React.FC<SplitProps> = ({ setColor }) => {
         if(user) {
           const currentSplit = await getCurrentSplit(user.uid);
           setLoading(false);
-          if(currentSplit && currentSplit[0].data) {
+          if(currentSplit) {
             const newSplit: Splits = {
-              name: currentSplit[0].data.name as string,
-              days: currentSplit[0].data.days as Day[]
+              name: currentSplit.data.name,
+              days: currentSplit.data.days
             }
 
             setSplit(newSplit);
-            console.log(currentSplit);
           }
         }
       }

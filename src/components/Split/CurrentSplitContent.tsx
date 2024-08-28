@@ -18,7 +18,7 @@ const CurrentSplitContent: React.FC<CurrentSplitContentProps> = ({split}) => {
                 <HorizontalBar />
                 <Day
                   title={day.name}
-                  workouts={day.workouts}
+                  exercises={day.exercises}
                 />
               </div>
             );

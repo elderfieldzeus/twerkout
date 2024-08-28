@@ -16,7 +16,7 @@ interface NewSplitProps {
 
 export interface Day {
   name: string;
-  workouts: string[];
+  exercises: string[];
 }
 
 export interface Split {
@@ -32,7 +32,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     name: "",
     days: [{
       name: "",
-      workouts: []
+      exercises: []
     }],
   }
 
@@ -58,7 +58,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
       if(temp.length < MAX_DAYS){
         temp.push({
           name: "",
-          workouts: []
+          exercises: []
         });
       }
 
@@ -96,11 +96,11 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const handleAddWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
     setSplit(prev => {
       const daysTemp: Day[] = [...prev.days];
-      const workoutsTemp: string[] = [...prev.days[index].workouts];
+      const exercisesTemp: string[] = [...prev.days[index].exercises];
 
-      workoutsTemp.push("");
+      exercisesTemp.push("");
 
-      daysTemp[index] = {...daysTemp[index], workouts: workoutsTemp};
+      daysTemp[index] = {...daysTemp[index], exercises: exercisesTemp};
 
       return {
         ...prev,
@@ -113,12 +113,12 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     if(e.target.value.length < MAX_TITLE) {
       setSplit(prev => {
         const daysTemp: Day[] = [...prev.days];
-        const workoutsTemp: string[] = [...prev.days[dayIndex].workouts];
+        const exercisesTemp: string[] = [...prev.days[dayIndex].exercises];
 
         
-        workoutsTemp[workoutIndex] = e.target.value.toLocaleUpperCase();
+        exercisesTemp[workoutIndex] = e.target.value.toLocaleUpperCase();
 
-        daysTemp[dayIndex].workouts = [...workoutsTemp];
+        daysTemp[dayIndex].exercises = [...exercisesTemp];
 
         return {
           ...prev,
@@ -131,11 +131,11 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
   const handleDeleteWorkout = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
     setSplit(prev => {
       const daysTemp: Day[] = [...prev.days];
-      const workoutsTemp: string[] = [...prev.days[index].workouts];
+      const exercisesTemp: string[] = [...prev.days[index].exercises];
 
-      workoutsTemp.splice(-1, 1);
+      exercisesTemp.splice(-1, 1);
 
-      daysTemp[index] = {...daysTemp[index], workouts: workoutsTemp};
+      daysTemp[index] = {...daysTemp[index], exercises: exercisesTemp};
 
       return {
         ...prev,
@@ -167,8 +167,8 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     if(split.name === '' || split.days.length === 0) isValid = false;
 
     split.days.forEach((day) => {
-      if(split.name === '' || day.workouts.length === 0) isValid = false;
-      day.workouts.forEach((workout) => {
+      if(split.name === '' || day.exercises.length === 0) isValid = false;
+      day.exercises.forEach((workout) => {
         if(workout === '') isValid = false;
       })
     })

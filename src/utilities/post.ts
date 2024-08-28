@@ -45,8 +45,8 @@ export async function postSplit(split: Split, uid: string) {
   }
 }
 
-export interface Workout {
-  workout: string,
+export interface Exercise {
+  name: string,
   sets: Set[];
 }
 
@@ -57,11 +57,23 @@ export interface Set {
 
 export async function postWorkout(day: Day, splitId: string, userId: string) {
   try {
-    const exercises: Workout[] = [];
+    const q = query(collection(database, "workouts"),
+              where("userId", "==", userId),
+              where("isActive", "==", true));
 
-    day.workouts.forEach(exercise => {
+    const docRef = await getDocs(q);
+
+    docRef.forEach(async (doc) => {
+      await updateDoc(doc.ref, {
+        isActive: false
+      });
+    })
+
+    const exercises: Exercise[] = [];
+
+    day.exercises.forEach(exercise => {
       exercises.push({
-        workout: exercise,
+        name: exercise,
         sets: []
       });
     })
@@ -78,6 +90,7 @@ export async function postWorkout(day: Day, splitId: string, userId: string) {
     return true;
   }
   catch(e) {
+    console.log(e);
     return false;
   }
 }

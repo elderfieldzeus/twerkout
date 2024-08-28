@@ -46,7 +46,7 @@ export function subscribeToNotes(
 
 export async function getCurrentSplit(
   userId: string,
-): Promise<DocReturn[] | null> {
+): Promise<DocReturn | null> {
   try {
     const q = query(
       collection(database, "split"),
@@ -66,7 +66,36 @@ export async function getCurrentSplit(
       });
     });
 
-    return docReturn;
+    return docReturn.length == 1 ? docReturn[0] : null;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+export async function getCurrentWorkout(
+  userId: string
+): Promise<DocReturn | null> {
+  try {
+    const q = query(
+      collection(database, "workouts"),
+      where("userId", "==", userId),
+      where("isActive", "==", true),
+      orderBy("createdAt", "desc"),
+      limit(1),
+    );
+
+    const docs = await getDocs(q);
+    const docReturn: DocReturn[] = [];
+
+    docs.forEach((doc) => {
+      docReturn.push({
+        id: doc.id,
+        data: doc.data(),
+      });
+    });
+
+    return docReturn.length == 1 ? docReturn[0] : null;
   } catch (e) {
     console.error(e);
     return null;
