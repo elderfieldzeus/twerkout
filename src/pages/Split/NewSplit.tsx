@@ -178,6 +178,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     }
 
     if(!isValid) {
+      setLoading(false);
       alert("LACKING INPUT");
     }
   }

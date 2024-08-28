@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 interface MainProps {
   children?: React.ReactNode;
-  header: string;
+  header?: string;
   Extra?: React.ReactNode;
 }
 

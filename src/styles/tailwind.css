@@ -902,6 +902,10 @@ video {
   gap: 0.5rem;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
 .gap-5 {
   gap: 1.25rem;
 }
@@ -913,6 +917,10 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
 }
 
 .rounded-\[2\.5rem\] {
