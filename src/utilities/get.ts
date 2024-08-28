@@ -81,8 +81,7 @@ export async function getCurrentWorkout(
       collection(database, "workouts"),
       where("userId", "==", userId),
       where("isActive", "==", true),
-      orderBy("createdAt", "desc"),
-      limit(1),
+      limit(1)
     );
 
     const docs = await getDocs(q);

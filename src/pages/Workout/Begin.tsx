@@ -69,6 +69,9 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
             setSplitId(currentSplit.id);
             setSplit(newSplit);
           }
+          else {
+            navigate('/split/new');
+          }
         }
       }
       catch(e) {
@@ -77,7 +80,7 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
     }
 
     fetchSplit();
-  }, [user]);
+  }, [user, navigate]);
 
   return (
   <Main>

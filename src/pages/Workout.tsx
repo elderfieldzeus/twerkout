@@ -19,7 +19,6 @@ export interface Workouts {
 
 const Workout: React.FC<WorkoutProps> = ({ setColor }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [workout, setWorkout] = useState<Workouts | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -34,15 +33,13 @@ const Workout: React.FC<WorkoutProps> = ({ setColor }) => {
       try {
         if(user) {
           const currentWorkout = await getCurrentWorkout(user.uid);
-          setLoading(false);
-          if(currentWorkout) {
-            const newWorkout: Workouts = {
-              name: currentWorkout.data.name,
-              exercises: currentWorkout.data.exercises
-            }
 
-            setWorkout(newWorkout);
+          setLoading(false);
+
+          if(currentWorkout) {
+            // navigate('/workout');
           }
+
         }
       }
       catch(e) {
@@ -51,14 +48,7 @@ const Workout: React.FC<WorkoutProps> = ({ setColor }) => {
     }
 
     fetchWorkout();
-  }, [user]);
-
-  useEffect(() => {
-    if(workout != null) {
-      console.log('meow');
-      navigate('/workout');
-    }
-  }, [workout, navigate]);
+  }, [user, navigate]);
 
   useEffect(() => {
     setColor();
