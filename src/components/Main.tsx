@@ -14,6 +14,13 @@ const Main: React.FC<MainProps> = ({ children, header, Extra }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  })
+
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {
         navigate("/");
