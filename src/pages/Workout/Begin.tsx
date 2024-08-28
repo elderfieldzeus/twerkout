@@ -14,7 +14,7 @@ interface BeginProps {
 const Begin: React.FC<BeginProps> = ({ setColor }) => {
     const [user, setUser] = useState<User | null>(null);
     const [split, setSplit] = useState<Split | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setColor();
@@ -61,9 +61,12 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
     <>
         <p className="font-coffee text-4xl w-full text-center mb-4">Choose a Day!</p>
         <div className="flex flex-col gap-4">
-            {split?.days.map((day) => {
+            {split?.days.map((day, i) => {
                 return (
-                    <DayButton content={day.name} />
+                    <DayButton
+                        key = {i}
+                        content={day.name} 
+                    />
                 )
             })}
         </div>
