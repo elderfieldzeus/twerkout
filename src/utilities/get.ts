@@ -16,10 +16,10 @@ export interface DocReturn {
 }
 
 export function subscribeToNotes(
-  userID: string,
+  userId: string,
   callback: (notes: DocReturn[]) => void,
 ) {
-  const q = query(collection(database, "notes"), where("userid", "==", userID));
+  const q = query(collection(database, "notes"), where("userId", "==", userId));
 
   onSnapshot(
     q,
@@ -45,12 +45,12 @@ export function subscribeToNotes(
 }
 
 export async function getCurrentSplit(
-  userID: string,
+  userId: string,
 ): Promise<DocReturn[] | null> {
   try {
     const q = query(
       collection(database, "split"),
-      where("userid", "==", userID),
+      where("userId", "==", userId),
       where("isActive", "==", true),
       orderBy("createdAt", "desc"),
       limit(1),

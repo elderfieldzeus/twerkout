@@ -1,13 +1,13 @@
 import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { database } from "./firebase";
-import { Split } from "../pages/Split/NewSplit";
+import { Day, Split } from "../pages/Split/NewSplit";
 
-export async function postNote(title: string, content: string, userid: string) {
+export async function postNote(title: string, content: string, userId: string) {
   try {
     await addDoc(collection(database, "notes"), {
       title,
       content,
-      userid,
+      userId,
       createdAt: new Date(),
     });
     return true;
@@ -20,7 +20,7 @@ export async function postSplit(split: Split, uid: string) {
   try {
     const q = query(collection(database, "split"), 
             where("isActive", "==", true),
-            where("userid", "==", uid));
+            where("userId", "==", uid));
 
     const docRef = await getDocs(q);
 
@@ -34,10 +34,47 @@ export async function postSplit(split: Split, uid: string) {
       name: split.name,
       days: split.days,
       createdAt: new Date(),
-      userid: uid,
+      userId: uid,
       isActive: true
     });
     
+    return true;
+  }
+  catch(e) {
+    return false;
+  }
+}
+
+export interface Workout {
+  workout: string,
+  sets: Set[];
+}
+
+export interface Set {
+  reps: number,
+  weightKG: number
+}
+
+export async function postWorkout(day: Day, splitId: string, userId: string) {
+  try {
+    const exercises: Workout[] = [];
+
+    day.workouts.forEach(exercise => {
+      exercises.push({
+        workout: exercise,
+        sets: []
+      });
+    })
+
+    await addDoc(collection(database, "workouts"), {
+      name: day.name,
+      exercises,
+      splitId,
+      date: new Date(),
+      userId,
+      isActive: true
+    });
+
     return true;
   }
   catch(e) {

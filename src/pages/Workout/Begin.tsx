@@ -6,6 +6,8 @@ import { getCurrentSplit } from "../../utilities/get";
 import { User } from "firebase/auth";
 import { auth } from "../../utilities/firebase";
 import LoadingScreen from "../../components/LoadingScreen";
+import { postWorkout } from "../../utilities/post";
+import { useNavigate } from "react-router-dom";
 
 interface BeginProps {
   setColor: () => void;
@@ -13,8 +15,34 @@ interface BeginProps {
 
 const Begin: React.FC<BeginProps> = ({ setColor }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [splitId, setSplitId] = useState<string>('');
     const [split, setSplit] = useState<Split | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
+
+    const handleCreateWorkout = (day: Day): React.MouseEventHandler<HTMLButtonElement> => () => {
+        const handlePostWorkout = async () => {
+            try {
+                if(user) {
+                    const result = await postWorkout(day, splitId, user.uid);
+
+                    if(result) {
+                        setLoading(false);
+                        navigate('/gym');
+                    }
+                    else {
+                        alert("UNKNOWN ERROR");
+                    }
+                }
+            }
+            catch(e) {
+                console.error(e);
+            }
+        }
+
+        setLoading(true);
+        handlePostWorkout();
+    }
 
   useEffect(() => {
     setColor();
@@ -37,7 +65,8 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
               name: currentSplit[0].data.name as string,
               days: currentSplit[0].data.days as Day[]
             }
-
+            
+            setSplitId(currentSplit[0].id);
             setSplit(newSplit);
             console.log(currentSplit);
           }
@@ -66,6 +95,7 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
                     <DayButton
                         key = {i}
                         content={day.name} 
+                        handleClick={handleCreateWorkout(day)}
                     />
                 )
             })}
