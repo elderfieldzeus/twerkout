@@ -167,7 +167,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
     if(split.name === '' || split.days.length === 0) isValid = false;
 
     split.days.forEach((day) => {
-      if(split.name === '' || day.exercises.length === 0) isValid = false;
+      if(day.name === '' || day.exercises.length === 0) isValid = false;
       day.exercises.forEach((workout) => {
         if(workout === '') isValid = false;
       })

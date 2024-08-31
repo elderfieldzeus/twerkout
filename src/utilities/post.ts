@@ -55,7 +55,7 @@ export interface Set {
   weightKG: number
 }
 
-export async function postWorkout(day: Day, splitId: string, userId: string) {
+export async function postWorkout(day: Day, splitId: string, userId: string, dayIndex: number) {
   try {
     const q = query(collection(database, "workouts"),
               where("userId", "==", userId),
@@ -82,6 +82,7 @@ export async function postWorkout(day: Day, splitId: string, userId: string) {
       name: day.name,
       exercises,
       splitId,
+      dayIndex,
       date: new Date(),
       userId,
       isActive: true

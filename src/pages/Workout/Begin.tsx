@@ -20,11 +20,11 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
-    const handleCreateWorkout = (day: Day): React.MouseEventHandler<HTMLButtonElement> => () => {
+    const handleCreateWorkout = (day: Day, dayIndex: number): React.MouseEventHandler<HTMLButtonElement> => () => {
         const handlePostWorkout = async () => {
             try {
                 if(user) {
-                    const result = await postWorkout(day, splitId, user.uid);
+                    const result = await postWorkout(day, splitId, user.uid, dayIndex);
 
                     if(result) {
                         setLoading(false);
@@ -97,7 +97,7 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
                     <DayButton
                         key = {i}
                         content={day.name} 
-                        handleClick={handleCreateWorkout(day)}
+                        handleClick={handleCreateWorkout(day, i)}
                     />
                 )
             })}

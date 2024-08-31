@@ -6,15 +6,9 @@ import LoadingScreen from "../components/LoadingScreen";
 import { User } from "firebase/auth";
 import { auth } from "../utilities/firebase";
 import { getCurrentWorkout } from "../utilities/get";
-import { Exercise } from "../utilities/post";
 
 interface WorkoutProps {
   setColor: () => void;
-}
-
-export interface Workouts {
-  name: string,
-  exercises: Exercise[]
 }
 
 const Workout: React.FC<WorkoutProps> = ({ setColor }) => {
@@ -37,7 +31,7 @@ const Workout: React.FC<WorkoutProps> = ({ setColor }) => {
           setLoading(false);
 
           if(currentWorkout) {
-            // navigate('/workout');
+            navigate('/gym/session');
           }
 
         }

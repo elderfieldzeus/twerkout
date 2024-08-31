@@ -11,6 +11,7 @@ import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
 import NewSplit from "./pages/Split/NewSplit";
 import Begin from "./pages/Workout/Begin";
+import Session from "./pages/Workout/Session";
 
 function App() {
   const [white, setWhite] = useState<boolean>(true);
@@ -35,6 +36,7 @@ function App() {
             <Route path="/" element={<Landing setColor={setToYellow} />} />
             <Route path="/gym" element={<Workout setColor={setToWhite} />} />
             <Route path="/gym/begin" element={<Begin setColor={setToWhite} />} />
+            <Route path="/gym/session" element={<Session setColor={setToWhite} />} />
             <Route path="/split" element={<Split setColor={setToWhite} />} />
             <Route
               path="/split/current"
