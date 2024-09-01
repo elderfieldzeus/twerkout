@@ -1,12 +1,12 @@
 import React from 'react'
 
-interface WorkoutButtonProps {
+interface ExerciseButtonProps {
     handleClick: React.MouseEventHandler<HTMLButtonElement>;
     name: string;
     other?: boolean;
 }
 
-const WorkoutButton:React.FC<WorkoutButtonProps> = ({handleClick, name, other = false}) => {
+const ExerciseButton:React.FC<ExerciseButtonProps> = ({handleClick, name, other = false}) => {
   const bg = other ? 'bg-orange-300 active:bg-orange-400' : 'bg-yellow-400 active:bg-yellow-500'
 
   return (
@@ -19,4 +19,4 @@ const WorkoutButton:React.FC<WorkoutButtonProps> = ({handleClick, name, other = 
   )
 }
 
-export default WorkoutButton
+export default ExerciseButton

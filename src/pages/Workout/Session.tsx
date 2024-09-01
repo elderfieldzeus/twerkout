@@ -10,7 +10,7 @@ import { Exercise } from '../../utilities/post';
 import { useNavigate } from 'react-router-dom';
 import SessionHeader from '../../components/Workout/SessionHeader';
 import EndWorkoutButton from '../../components/Workout/EndWorkoutButton';
-import WorkoutButton from '../../components/Workout/WorkoutButton';
+import ExerciseButton from '../../components/Workout/ExerciseButton';
 
 interface SessionProps {
     setColor: () => void;
@@ -103,18 +103,18 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
           <p className='font-coffee w-full text-center mb-2'>CHOOSE AN EXERCISE</p>
 
           {workout?.exercises.map((exercise) => {
-            return <WorkoutButton 
+            return <ExerciseButton 
                       handleClick={alert}
                       name={exercise.name}
                     />
           })
           }
-
-            <WorkoutButton 
-              handleClick={alert}
-              name='...Other'
-              other={true}
-            />
+          
+          <ExerciseButton 
+            handleClick={alert}
+            name='...Other'
+            other={true}
+          />
         </>
       }
     </Main>
