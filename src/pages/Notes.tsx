@@ -57,7 +57,12 @@ const Notes: React.FC<NotesProps> = ({ setColor }) => {
         <>
           <Write noteCount={notes.length} />
           {open && (
-            <Notepad handleClose={handleClose}>{NotepadContent}</Notepad>
+            <Notepad 
+              handleClose={handleClose}
+              type = "Notes"
+            >
+              {NotepadContent}
+            </Notepad>
           )}
         </>
       }

@@ -38,7 +38,10 @@ const AddNote: React.FC<AddNoteProps> = ({ handleClose }) => {
   };
 
   return (
-    <Notepad handleClose={handleClose}>
+    <Notepad 
+      handleClose={handleClose}
+      type = 'Notes'
+    >
       <input
         id="title"
         type="text"

@@ -11,6 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import SessionHeader from '../../components/Workout/SessionHeader';
 import EndWorkoutButton from '../../components/Workout/EndWorkoutButton';
 import ExerciseButton from '../../components/Workout/ExerciseButton';
+import Notepad from '../../components/Notepad';
+import ExerciseContent from '../../components/Workout/ExerciseContent';
+import SubLoading from '../../components/SubLoading';
 
 interface SessionProps {
     setColor: () => void;
@@ -26,7 +29,10 @@ interface WorkoutDay {
 const Session: React.FC<SessionProps> = ({ setColor }) => {
     const [user, setUser] = useState<User | null>(null);
     const [workout, setWorkout] = useState<WorkoutDay | null>(null);
+    const [exercise, setExercise] = useState<Exercise | null>(null);
+
     const [loading, setLoading] = useState<boolean>(true);
+    const [open, setOpen] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -48,6 +54,16 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
 
       setLoading(true);
       handleChangeStatus();
+    }
+
+    const handleOpenWorkout = (e: Exercise): React.MouseEventHandler<HTMLButtonElement> => () => {
+      setOpen(true);
+      setExercise(e);
+    }
+
+    const handleCloseWorkout: React.MouseEventHandler<HTMLButtonElement> = () => {
+      setOpen(false);
+      setExercise(null);
     }
 
     useEffect(() => {
@@ -87,7 +103,23 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
     }, [user]);
     
   return (
-    <Main header='Session'>
+    <Main 
+      header='Session'
+      Extra = {open && (
+        <Notepad 
+          handleClose={handleCloseWorkout}
+          type='Session'
+        >
+          {
+            (exercise)
+            ?
+            <ExerciseContent exercise={exercise} />
+            :
+            <SubLoading />
+          }
+        </Notepad>
+      )}
+    >
       {
         loading
         ?
@@ -104,7 +136,7 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
 
           {workout?.exercises.map((exercise) => {
             return <ExerciseButton 
-                      handleClick={alert}
+                      handleClick={handleOpenWorkout(exercise)}
                       name={exercise.name}
                     />
           })
