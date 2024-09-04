@@ -31,9 +31,9 @@ const Main: React.FC<MainProps> = ({ children, header, Extra }) => {
   return (
     <div className="w-full bg-white flex justify-center">
       <Navbar />
-      <p className="fixed top-0 flex h-14 w-full items-center bg-white px-5 font-coffee text-2xl z-30">
+      {header && <p className="fixed top-0 flex h-14 w-full items-center bg-white px-5 font-coffee text-2xl z-30">
         {header}
-      </p>
+      </p>}
       {Extra}
       <main className="min-h-screen max-w-[30rem] w-full px-5 pt-16 pb-24">{children}</main>
     </div>
