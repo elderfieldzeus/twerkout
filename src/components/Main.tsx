@@ -29,7 +29,7 @@ const Main: React.FC<MainProps> = ({ children, header, Extra }) => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen w-full bg-white flex justify-center">
+    <div className="w-full bg-white flex justify-center">
       <Navbar />
       <p className="fixed top-0 flex h-14 w-full items-center bg-white px-5 font-coffee text-2xl z-30">
         {header}
