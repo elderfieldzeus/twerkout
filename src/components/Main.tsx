@@ -35,7 +35,7 @@ const Main: React.FC<MainProps> = ({ children, header, Extra }) => {
         {header}
       </p>
       {Extra}
-      <main className="h-screen max-w-[30rem] w-full px-5 pt-16 pb-24">{children}</main>
+      <main className="min-h-screen max-w-[30rem] w-full px-5 pt-16 pb-24">{children}</main>
     </div>
   );
 };
