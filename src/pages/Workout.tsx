@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Main from "../components/Main";
-import BeginWorkout from "../components/Workout/BeginWorkout";
+// import BeginWorkout from "../components/Workout/BeginWorkout";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
 import { User } from "firebase/auth";
 import { auth } from "../utilities/firebase";
 import { getCurrentWorkout } from "../utilities/get";
+import StartWorkout from "../components/Workout/StartWorkout";
 
 interface WorkoutProps {
   setColor: () => void;
@@ -53,13 +54,14 @@ const Workout: React.FC<WorkoutProps> = ({ setColor }) => {
   }
 
   return (
-  <Main header="Workout">
+  <Main>
     {
       loading
       ?
       <LoadingScreen />
       :
-      <BeginWorkout handleClick={handleClick}/>
+      // <BeginWorkout handleClick={handleClick}/>
+      <StartWorkout handleClick={handleClick} />
     }
   </Main>
 );
