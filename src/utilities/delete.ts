@@ -10,3 +10,14 @@ export async function deleteNote(noteId: string) {
     console.error(e);
   }
 }
+
+export async function deleteWorkout(workoutId: string) {
+  try {
+    const docRef = doc(database, "workouts", workoutId);
+
+    await deleteDoc(docRef);
+  }
+  catch(e) {
+    console.error(e);
+  }
+}

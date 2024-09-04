@@ -14,12 +14,15 @@ import ExerciseButton from '../../components/Workout/ExerciseButton';
 import Notepad from '../../components/Notepad';
 import ExerciseContent from '../../components/Workout/ExerciseContent';
 import SubLoading from '../../components/SubLoading';
+import CancelWorkout from '../../components/Workout/CancelWorkout';
+import { deleteWorkout } from '../../utilities/delete';
 
 interface SessionProps {
     setColor: () => void;
 }
 
 interface WorkoutDay {
+  id: string,
   name: string,
   exercises: Exercise[],
   splitId: string,
@@ -56,6 +59,25 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
       handleChangeStatus();
     }
 
+    const handleDeleteWorkout: React.MouseEventHandler<HTMLButtonElement> = () => {
+      const handleDelete = async () => {
+        try {
+          if(workout) {
+            await deleteWorkout(workout.id);
+            
+            setLoading(false);
+            navigate('/gym');
+          }
+        }
+        catch(e) {
+          console.error(e);
+        }
+      }
+
+      setLoading(true);
+      handleDelete();
+    }
+
     const handleOpenWorkout = (e: Exercise): React.MouseEventHandler<HTMLButtonElement> => () => {
       setOpen(true);
       setExercise(e);
@@ -84,6 +106,7 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
             
             if(currentWorkout) {
               setWorkout({
+                id: currentWorkout.id,
                 name: currentWorkout.data.name,
                 exercises: [...currentWorkout.data.exercises],
                 splitId: currentWorkout.data.splitId,
@@ -128,14 +151,19 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
         <>
           <SessionHeader name = { workout ? workout.name : ''} />
 
-          <EndWorkoutButton handleEndWorkout = {handleEndWorkout} />
+          <div className='w-full flex justify-center my-4 gap-1'>
+            <EndWorkoutButton handleEndWorkout = {handleEndWorkout} />
+            <CancelWorkout handleCancelWorkout={handleDeleteWorkout} />
+          </div>
+          
 
           <HorizontalBar className='border-black my-4'/>
 
           <p className='font-coffee w-full text-center mb-2'>CHOOSE AN EXERCISE</p>
 
-          {workout?.exercises.map((exercise) => {
+          {workout?.exercises.map((exercise, index) => {
             return <ExerciseButton 
+                      key={index}
                       handleClick={handleOpenWorkout(exercise)}
                       name={exercise.name}
                     />
