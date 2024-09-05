@@ -116,7 +116,7 @@ const NewSplit: React.FC<NewSplitProps> = ({ setColor }) => {
         const exercisesTemp: string[] = [...prev.days[dayIndex].exercises];
 
         
-        exercisesTemp[workoutIndex] = e.target.value.toLocaleUpperCase();
+        exercisesTemp[workoutIndex] = e.target.value;
 
         daysTemp[dayIndex].exercises = [...exercisesTemp];
 
