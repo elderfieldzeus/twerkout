@@ -826,12 +826,24 @@ video {
   height: 100vh;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .min-h-\[30rem\] {
   min-height: 30rem;
 }
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-96 {
+  min-height: 24rem;
+}
+
+.min-h-\[36rem\] {
+  min-height: 36rem;
 }
 
 .w-10 {
@@ -963,6 +975,10 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .rounded-\[2\.5rem\] {

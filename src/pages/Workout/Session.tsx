@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Main from '../../components/Main';
 import { User } from 'firebase/auth';
 import { auth } from '../../utilities/firebase';
-import { getCurrentWorkout } from '../../utilities/get';
+import { subscribeToWorkout } from '../../utilities/get';
 import LoadingScreen from '../../components/LoadingScreen';
 import HorizontalBar from '../../components/HorizontalBar';
-import { updateWorkoutStatus } from '../../utilities/update';
+import { addExerciseSet, updateWorkoutStatus } from '../../utilities/update';
 import { Exercise } from '../../utilities/post';
 import { useNavigate } from 'react-router-dom';
 import SessionHeader from '../../components/Workout/SessionHeader';
@@ -21,7 +21,7 @@ interface SessionProps {
     setColor: () => void;
 }
 
-interface WorkoutDay {
+export interface WorkoutDay {
   id: string,
   name: string,
   exercises: Exercise[],
@@ -32,9 +32,10 @@ interface WorkoutDay {
 const Session: React.FC<SessionProps> = ({ setColor }) => {
     const [user, setUser] = useState<User | null>(null);
     const [workout, setWorkout] = useState<WorkoutDay | null>(null);
-    const [exercise, setExercise] = useState<Exercise | null>(null);
+    const [workoutIndex, setWorkoutIndex] = useState<number>(-1);
 
     const [loading, setLoading] = useState<boolean>(true);
+    const [subLoading, setSubLoading] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -78,14 +79,29 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
       handleDelete();
     }
 
-    const handleOpenWorkout = (e: Exercise): React.MouseEventHandler<HTMLButtonElement> => () => {
+    const handleOpenWorkout = (i: number): React.MouseEventHandler<HTMLButtonElement> => () => {
       setOpen(true);
-      setExercise(e);
+      setWorkoutIndex(i);
     }
 
     const handleCloseWorkout: React.MouseEventHandler<HTMLButtonElement> = () => {
       setOpen(false);
-      setExercise(null);
+    }
+
+    const handleAddSet = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
+      const handleUpdateSet = async () => {
+        try {
+          if(workout && index !== -1) {
+            setSubLoading(true);
+            await addExerciseSet(workout.id, index);
+          }
+        }
+        catch(e) {
+          console.error(e);
+        }
+      }
+
+      handleUpdateSet();
     }
 
     useEffect(() => {
@@ -99,30 +115,18 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
     }, []);
 
     useEffect(() => {
-      const fetchWorkout = async () => {
-        try {
-          if(user) {
-            const currentWorkout = await getCurrentWorkout(user.uid);
-            
-            if(currentWorkout) {
-              setWorkout({
-                id: currentWorkout.id,
-                name: currentWorkout.data.name,
-                exercises: [...currentWorkout.data.exercises],
-                splitId: currentWorkout.data.splitId,
-                dayIndex: currentWorkout.data.dayIndex
-              });
-              setLoading(false);
-            }
-          }
-        }
-        catch(e) {
-          console.error(e);
+      const handleSubscribe = async () => {
+        if(user) {
+          await subscribeToWorkout(user.uid, (tempWorkout) => {
+            setWorkout(tempWorkout);
+            setSubLoading(false);
+          });
+
           setLoading(false);
         }
       }
-  
-      fetchWorkout();
+        
+      handleSubscribe();
     }, [user]);
     
   return (
@@ -134,9 +138,13 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
           type='Session'
         >
           {
-            (exercise)
+            (workout && !subLoading)
             ?
-            <ExerciseContent exercise={exercise} />
+            <ExerciseContent 
+              exercises={workout.exercises}
+              handleAddSet={handleAddSet}
+              index = {workoutIndex}
+            />
             :
             <SubLoading />
           }
@@ -164,7 +172,7 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
           {workout?.exercises.map((exercise, index) => {
             return <ExerciseButton 
                       key={index}
-                      handleClick={handleOpenWorkout(exercise)}
+                      handleClick={handleOpenWorkout(index)}
                       name={exercise.name}
                     />
           })

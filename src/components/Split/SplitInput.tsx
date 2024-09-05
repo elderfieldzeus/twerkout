@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Split } from '../../pages/Split/NewSplit'
 import TitleInput from './TitleInput';
 import DayInput from './DayInput';
-import AddDayButton from './AddDayButton';
+import AddButton from '../AddButton';
 
 interface SplitInputProps {
     split: Split;
@@ -63,8 +63,8 @@ const SplitInput: React.FC<SplitInputProps> = ({ split, handleChangeName, MAX_TI
         })}
 
 
-        <AddDayButton 
-            handleAddDay={handleAddDay}
+        <AddButton 
+            handleAdd={handleAddDay}
         />
     </div>
   )

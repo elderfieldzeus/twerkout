@@ -1,3 +1,4 @@
+import { WorkoutDay } from "../pages/Workout/Session";
 import { database } from "./firebase";
 import {
   collection,
@@ -9,6 +10,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { Exercise } from "./post";
 
 export interface DocReturn {
   id: string;
@@ -98,5 +100,43 @@ export async function getCurrentWorkout(
   } catch (e) {
     console.error(e);
     return null;
+  }
+}
+
+export async function subscribeToWorkout(
+  userId: string,
+  callback: (workout: WorkoutDay) => void
+) {
+  try {
+    const q = query(
+      collection(database, "workouts"),
+      where("userId", "==", userId),
+      where("isActive", "==", true),
+      limit(1)
+    );
+
+    onSnapshot(
+      q,
+      (snapshot) => {
+        const workouts: WorkoutDay[] = [];
+
+        snapshot.forEach((doc) => {
+          workouts.push({
+            id: doc.id as string,
+            name: doc.data().name as string,
+            exercises: doc.data().exercises as Exercise[],
+            splitId: doc.data().splitId as string,
+            dayIndex: doc.data().dayIndex as number
+          });
+        });
+  
+        callback(workouts[0]);
+      },
+      (error) => {
+        console.error("Error getting workout:", error);
+      },
+    );
+  } catch (e) {
+    console.error(e);
   }
 }

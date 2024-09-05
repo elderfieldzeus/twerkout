@@ -35,8 +35,6 @@ const Notes: React.FC<NotesProps> = ({ setColor }) => {
   };
 
   useEffect(() => {
-    setLoading(true);
-
     const user = auth.currentUser;
     if (user) {
       subscribeToNotes(user.uid, (updatedNotes) => {
