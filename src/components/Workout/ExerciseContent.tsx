@@ -27,8 +27,8 @@ const ExerciseContent: React.FC<ExerciseContent> = ( { exercises, handleAddSet, 
           return (
           <div key = {i}>
             <p className='font-coffee text-xs'>Set #{i + 1}</p>
-            <div>
-
+            <div className='hidden'>
+              {set.reps}
             </div>
           </div>
         )
