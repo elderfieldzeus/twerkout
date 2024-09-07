@@ -3,14 +3,18 @@ import { Exercise } from '../../utilities/post';
 import HorizontalBar from '../HorizontalBar';
 import Inline from '../Inline';
 import AddButton from '../AddButton';
+import ExerciseSet from './ExerciseSet';
 
 interface ExerciseContent {
     exercises: Exercise[];
     handleAddSet: (index: number) => React.MouseEventHandler<HTMLButtonElement>;
     index: number;
+    handleChangeReps: (setIndex: number) => React.ChangeEventHandler<HTMLInputElement>;
+    handleChangeWeight: (setIndex: number) => React.ChangeEventHandler<HTMLInputElement>;
+    handleDeleteSet: (setIndex: number) => React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const ExerciseContent: React.FC<ExerciseContent> = ( { exercises, handleAddSet, index } ) => {
+const ExerciseContent: React.FC<ExerciseContent> = ( { exercises, handleAddSet, index, handleChangeReps, handleChangeWeight, handleDeleteSet } ) => {
   return (
     <div>
         <div className='flex flex-col items-center'>
@@ -23,16 +27,25 @@ const ExerciseContent: React.FC<ExerciseContent> = ( { exercises, handleAddSet, 
 
         <HorizontalBar className='mx-2' />
         
-        {exercises[index].sets.map((set, i) => {
-          return (
-          <div key = {i}>
-            <p className='font-coffee text-xs'>Set #{i + 1}</p>
-            <div className='hidden'>
-              {set.reps}
-            </div>
-          </div>
-        )
-        })}
+        <div className='sets h-[25rem] overflow-y-scroll'>
+          {exercises[index].sets.map((set, i) => {
+            return (
+            <ExerciseSet
+              key = {i}
+              index = {i}
+              set = {set}
+              handleChangeReps = {handleChangeReps(i)}
+              handleChangeWeight = {handleChangeWeight(i)}
+              handleDeleteSet = {handleDeleteSet(i)}
+            />
+          )
+          })}
+          {
+            exercises[index].sets.length === 0
+            &&
+            <p className='font-coffee w-full text-[0.6rem] text-center text-gray-400'>No sets yet.</p>
+          }
+        </div>
 
         <AddButton 
           handleAdd={handleAddSet(index)} 

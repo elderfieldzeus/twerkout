@@ -5,7 +5,7 @@ import { auth } from '../../utilities/firebase';
 import { subscribeToWorkout } from '../../utilities/get';
 import LoadingScreen from '../../components/LoadingScreen';
 import HorizontalBar from '../../components/HorizontalBar';
-import { addExerciseSet, updateWorkoutStatus } from '../../utilities/update';
+import { addExerciseSet, saveExercise, updateWorkoutStatus } from '../../utilities/update';
 import { Exercise } from '../../utilities/post';
 import { useNavigate } from 'react-router-dom';
 import SessionHeader from '../../components/Workout/SessionHeader';
@@ -30,6 +30,9 @@ export interface WorkoutDay {
 }
 
 const Session: React.FC<SessionProps> = ({ setColor }) => {
+    const REP_MAX = 1000;
+    const WEIGHT_MAX = 1000;
+
     const [user, setUser] = useState<User | null>(null);
     const [workout, setWorkout] = useState<WorkoutDay | null>(null);
     const [workoutIndex, setWorkoutIndex] = useState<number>(-1);
@@ -85,14 +88,19 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
     }
 
     const handleCloseWorkout: React.MouseEventHandler<HTMLButtonElement> = () => {
+      if(workout && user) {
+        saveExercise(workout, user.uid);
+      }
+
       setOpen(false);
     }
 
     const handleAddSet = (index: number): React.MouseEventHandler<HTMLButtonElement> => () => {
       const handleUpdateSet = async () => {
         try {
-          if(workout && index !== -1) {
+          if(workout && index !== -1 && user) {
             setSubLoading(true);
+            await saveExercise(workout, user.uid);
             await addExerciseSet(workout.id, index);
           }
         }
@@ -102,6 +110,77 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
       }
 
       handleUpdateSet();
+    }
+
+    const handleDeleteSet = (exerciseIndex: number) => (setIndex: number) : React.MouseEventHandler<HTMLButtonElement> => () => {
+      const handleUpdateSet = async () => {
+        try {
+          if(workout && exerciseIndex !== -1 && setIndex !== -1 && user) {
+            setSubLoading(true);
+
+            workout.exercises[exerciseIndex].sets.splice(setIndex, 1);
+
+            await saveExercise(workout, user.uid);
+          }
+        }
+        catch(e) {
+          console.error(e);
+        }
+      }
+
+      handleUpdateSet();
+    }
+
+    const handleChangeReps = (exerciseIndex: number) => (setIndex: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
+      setWorkout(prev => {
+        let exercises: Exercise[] = [];
+        if(prev) {
+          exercises = prev.exercises;
+
+          const lastIndex = e.target.value.length - 1;
+
+          if((Number(e.target.value[lastIndex])
+            && Number(e.target.value) < REP_MAX 
+            && Number(e.target.value) > -REP_MAX) 
+            || (e.target.value[lastIndex] === '.' && e.target.value.split('.').length - 1 === 1)
+            || e.target.value === ''
+            || e.target.value === '0'
+            || e.target.value[lastIndex] === '0'
+          ) {
+            exercises[exerciseIndex].sets[setIndex].reps = e.target.value;
+          }
+        }
+        return (prev) ? {
+          ...prev,
+          exercises
+        }
+        :
+        null;
+      });
+    } 
+
+    const handleChangeWeight = (exerciseIndex: number) => (setIndex: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
+      setWorkout(prev => {
+        let exercises: Exercise[] = [];
+        if(prev) {
+          exercises = prev.exercises;
+
+          if(Number(e.target.value) 
+            && Number(e.target.value) < WEIGHT_MAX 
+            && Number(e.target.value) > -WEIGHT_MAX 
+            || e.target.value === ''
+          ) {
+            exercises[exerciseIndex].sets[setIndex].weightKG = e.target.value;
+          }
+
+        }
+        return (prev) ? {
+          ...prev,
+          exercises
+        }
+        :
+        null;
+      });
     }
 
     useEffect(() => {
@@ -120,9 +199,8 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
           await subscribeToWorkout(user.uid, (tempWorkout) => {
             setWorkout(tempWorkout);
             setSubLoading(false);
+            setLoading(false);
           });
-
-          setLoading(false);
         }
       }
         
@@ -144,6 +222,9 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
               exercises={workout.exercises}
               handleAddSet={handleAddSet}
               index = {workoutIndex}
+              handleChangeReps = {handleChangeReps(workoutIndex)}
+              handleChangeWeight = {handleChangeWeight(workoutIndex)}
+              handleDeleteSet = {handleDeleteSet(workoutIndex)}
             />
             :
             <SubLoading />

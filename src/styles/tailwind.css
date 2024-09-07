@@ -592,6 +592,10 @@ video {
   right: 0px;
 }
 
+.right-2 {
+  right: 0.5rem;
+}
+
 .right-5 {
   right: 1.25rem;
 }
@@ -623,6 +627,11 @@ video {
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .my-10 {
@@ -702,10 +711,6 @@ video {
   display: grid;
 }
 
-.hidden {
-  display: none;
-}
-
 .size-10 {
   width: 2.5rem;
   height: 2.5rem;
@@ -714,6 +719,11 @@ video {
 .size-14 {
   width: 3.5rem;
   height: 3.5rem;
+}
+
+.size-2 {
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 .size-20 {
@@ -766,6 +776,11 @@ video {
   height: 2rem;
 }
 
+.size-4 {
+  width: 1rem;
+  height: 1rem;
+}
+
 .h-0 {
   height: 0px;
 }
@@ -804,6 +819,10 @@ video {
 
 .h-96 {
   height: 24rem;
+}
+
+.h-\[25rem\] {
+  height: 25rem;
 }
 
 .h-\[36rem\] {
@@ -959,6 +978,10 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .rounded-\[2\.5rem\] {
@@ -1161,6 +1184,14 @@ video {
   padding-bottom: 6rem;
 }
 
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.pr-8 {
+  padding-right: 2rem;
+}
+
 .pt-10 {
   padding-top: 2.5rem;
 }
@@ -1187,6 +1218,10 @@ video {
 
 .text-start {
   text-align: start;
+}
+
+.text-end {
+  text-align: end;
 }
 
 .font-coffee {
@@ -1218,6 +1253,10 @@ video {
   line-height: 1;
 }
 
+.text-\[0\.5rem\] {
+  font-size: 0.5rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1231,6 +1270,10 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[0\.6rem\] {
+  font-size: 0.6rem;
 }
 
 .font-bold {
@@ -1325,6 +1368,19 @@ video {
 
 .duration-500 {
   transition-duration: 500ms;
+}
+
+.sets::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+
+.sets {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .hover\:cursor-pointer:hover {

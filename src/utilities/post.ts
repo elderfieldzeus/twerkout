@@ -51,8 +51,8 @@ export interface Exercise {
 }
 
 export interface Set {
-  reps: number,
-  weightKG: number
+  reps: string | number, // For Decimals
+  weightKG: string | number// For Decimals
 }
 
 export async function postWorkout(day: Day, splitId: string, userId: string, dayIndex: number) {
