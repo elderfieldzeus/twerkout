@@ -68,8 +68,7 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
         try {
           if(workout) {
             await deleteWorkout(workout.id);
-            
-            setLoading(false);
+
             navigate('/gym');
           }
         }
@@ -165,10 +164,15 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
         if(prev) {
           exercises = prev.exercises;
 
-          if(Number(e.target.value) 
+          const lastIndex = e.target.value.length - 1;
+
+          if((Number(e.target.value[lastIndex])
             && Number(e.target.value) < WEIGHT_MAX 
-            && Number(e.target.value) > -WEIGHT_MAX 
+            && Number(e.target.value) > -WEIGHT_MAX) 
+            || (e.target.value[lastIndex] === '.' && e.target.value.split('.').length - 1 === 1)
             || e.target.value === ''
+            || e.target.value === '0'
+            || e.target.value[lastIndex] === '0'
           ) {
             exercises[exerciseIndex].sets[setIndex].weightKG = e.target.value;
           }
