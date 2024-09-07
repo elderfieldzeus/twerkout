@@ -138,13 +138,11 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
 
           const lastIndex = e.target.value.length - 1;
 
-          if((Number(e.target.value[lastIndex])
+          if(((Number(e.target.value[lastIndex]) || e.target.value[lastIndex] === '0')
             && Number(e.target.value) < REP_MAX 
-            && Number(e.target.value) > -REP_MAX) 
-            || (e.target.value[lastIndex] === '.' && e.target.value.split('.').length - 1 === 1)
+            && Number(e.target.value) >= 0)
             || e.target.value === ''
             || e.target.value === '0'
-            || e.target.value[lastIndex] === '0'
           ) {
             exercises[exerciseIndex].sets[setIndex].reps = e.target.value;
           }
@@ -166,13 +164,12 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
 
           const lastIndex = e.target.value.length - 1;
 
-          if((Number(e.target.value[lastIndex])
+          if(((Number(e.target.value[lastIndex]) || e.target.value[lastIndex] === '0')
             && Number(e.target.value) < WEIGHT_MAX 
-            && Number(e.target.value) > -WEIGHT_MAX) 
+            && Number(e.target.value) >= 0) 
             || (e.target.value[lastIndex] === '.' && e.target.value.split('.').length - 1 === 1)
             || e.target.value === ''
             || e.target.value === '0'
-            || e.target.value[lastIndex] === '0'
           ) {
             exercises[exerciseIndex].sets[setIndex].weightKG = e.target.value;
           }
