@@ -13,7 +13,7 @@ interface ExerciseSetInterface {
 }
 
 const ExerciseSet: React.FC<ExerciseSetInterface> = ({index, set, handleChangeReps, handleChangeWeight, handleDeleteSet}) => {
-  const [show, setShow] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(true);
 
   const handleShow = () => {
     setShow(prev => !prev);

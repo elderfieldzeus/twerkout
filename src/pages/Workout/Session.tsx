@@ -5,7 +5,7 @@ import { auth } from '../../utilities/firebase';
 import { getBestWeight, subscribeToWorkout } from '../../utilities/get';
 import LoadingScreen from '../../components/LoadingScreen';
 import HorizontalBar from '../../components/HorizontalBar';
-import { addExerciseSet, saveExercise, updateWorkoutStatus } from '../../utilities/update';
+import { saveExercise, updateWorkoutStatus } from '../../utilities/update';
 import { Exercise, Set } from '../../utilities/post';
 import { useNavigate } from 'react-router-dom';
 import SessionHeader from '../../components/Workout/SessionHeader';
@@ -70,10 +70,9 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
     const handleDeleteWorkout: React.MouseEventHandler<HTMLButtonElement> = () => {
       const handleDelete = async () => {
         try {
-          if(workout) {
-            await deleteWorkout(workout.id);
-
+          if (workout) {
             navigate('/gym');
+            await deleteWorkout(workout.id);  
           }
         }
         catch(e) {
@@ -125,8 +124,13 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
         try {
           if(workout && index !== -1 && user) {
             setSubLoading(true);
+
+            workout.exercises[index].sets.push({
+              reps: 0,
+              weightKG: 0
+            });
+
             await saveExercise(workout, user.uid);
-            await addExerciseSet(workout.id, index);
           }
         }
         catch(e) {
