@@ -36,8 +36,8 @@ const ExerciseSet: React.FC<ExerciseSetInterface> = ({index, set, handleChangeRe
           show
           &&
           <div className='flex gap-2 text-sm my-2'>
-              <SetInput value = {set.reps} handleChange = {handleChangeReps} unit = "reps"/>
               <SetInput value = {set.weightKG} handleChange = {handleChangeWeight} unit = "kg"/>
+              <SetInput value = {set.reps} handleChange = {handleChangeReps} unit = "reps"/>   
           </div>
         }
     </div>

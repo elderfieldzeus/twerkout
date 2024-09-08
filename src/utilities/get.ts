@@ -1,4 +1,4 @@
-import { WorkoutDay } from "../pages/Workout/Session";
+import { WorkoutDay, WorkoutExercise } from "../pages/Workout/Session";
 import { database } from "./firebase";
 import {
   collection,
@@ -10,7 +10,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { Exercise } from "./post";
+import { Exercise, Set } from "./post";
 
 export interface DocReturn {
   id: string;
@@ -103,6 +103,52 @@ export async function getCurrentWorkout(
   }
 }
 
+export async function getBestWeight(userId: string, splitId: string, exerciseName: string): Promise<Set | null> {
+  try {
+     const q = query(collection(database, "workouts"), 
+                where("userId", "==", userId),
+                where("splitId", "==", splitId),
+                orderBy("date"),
+                limit(5));
+
+      const docRef = await getDocs(q);
+
+      const exercises: Exercise[] = [];
+
+      docRef.forEach((doc) => {
+        const tempExercises = doc.data().exercises as Exercise[];
+        const tempExercise = tempExercises.find((t) => t.name === exerciseName);
+
+        if(tempExercise) {
+          exercises.push(tempExercise);
+        }
+      });
+
+      let bestSet: Set = {
+        reps: 0,
+        weightKG: 0
+      };
+
+      exercises.forEach((exercise) => {
+        exercise.sets.forEach((set) => {
+          if(
+            (set.weightKG > bestSet.weightKG)
+            || (set.weightKG == bestSet.weightKG && set.reps > bestSet.weightKG)
+          ) {
+            bestSet = set;
+          }
+        });
+      });
+
+      return bestSet;
+  }
+  catch(e) {
+    console.error(e);
+
+    return null;
+  }
+}
+
 export async function subscribeToWorkout(
   userId: string,
   callback: (workout: WorkoutDay) => void
@@ -124,7 +170,7 @@ export async function subscribeToWorkout(
           workouts.push({
             id: doc.id as string,
             name: doc.data().name as string,
-            exercises: doc.data().exercises as Exercise[],
+            exercises: doc.data().exercises as WorkoutExercise[],
             splitId: doc.data().splitId as string,
             dayIndex: doc.data().dayIndex as number
           });

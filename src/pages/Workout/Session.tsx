@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Main from '../../components/Main';
 import { User } from 'firebase/auth';
 import { auth } from '../../utilities/firebase';
-import { subscribeToWorkout } from '../../utilities/get';
+import { getBestWeight, subscribeToWorkout } from '../../utilities/get';
 import LoadingScreen from '../../components/LoadingScreen';
 import HorizontalBar from '../../components/HorizontalBar';
 import { addExerciseSet, saveExercise, updateWorkoutStatus } from '../../utilities/update';
-import { Exercise } from '../../utilities/post';
+import { Exercise, Set } from '../../utilities/post';
 import { useNavigate } from 'react-router-dom';
 import SessionHeader from '../../components/Workout/SessionHeader';
 import EndWorkoutButton from '../../components/Workout/EndWorkoutButton';
@@ -24,9 +24,13 @@ interface SessionProps {
 export interface WorkoutDay {
   id: string,
   name: string,
-  exercises: Exercise[],
+  exercises: WorkoutExercise[],
   splitId: string,
   dayIndex: number
+}
+
+export interface WorkoutExercise extends Exercise {
+  bestSet: Set;
 }
 
 const Session: React.FC<SessionProps> = ({ setColor }) => {
@@ -82,8 +86,30 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
     }
 
     const handleOpenWorkout = (i: number): React.MouseEventHandler<HTMLButtonElement> => () => {
-      setOpen(true);
-      setWorkoutIndex(i);
+      const fetchBestSet = async () => {
+        try {
+          if(workout && user && i !== -1) {
+            const tempSet = await getBestWeight(user.uid, workout.splitId, workout.exercises[i].name);
+
+            if(tempSet !== null) {
+              workout.exercises[i].bestSet = tempSet;
+              setOpen(true);
+              setWorkoutIndex(i);
+            }
+          }
+        }
+        catch(e) {
+          console.error(e);
+        }
+      }
+
+      if(workout?.exercises[i].bestSet === undefined) {
+        fetchBestSet();
+      }
+      else if(workout) {
+        setOpen(true);
+        setWorkoutIndex(i);
+      }
     }
 
     const handleCloseWorkout: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -132,7 +158,7 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
 
     const handleChangeReps = (exerciseIndex: number) => (setIndex: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
       setWorkout(prev => {
-        let exercises: Exercise[] = [];
+        let exercises: WorkoutExercise[] = [];
         if(prev) {
           exercises = prev.exercises;
 
@@ -158,7 +184,7 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
 
     const handleChangeWeight = (exerciseIndex: number) => (setIndex: number): React.ChangeEventHandler<HTMLInputElement> => (e) => {
       setWorkout(prev => {
-        let exercises: Exercise[] = [];
+        let exercises: WorkoutExercise[] = [];
         if(prev) {
           exercises = prev.exercises;
 

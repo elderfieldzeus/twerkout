@@ -1,12 +1,12 @@
 import React from 'react'
-import { Exercise } from '../../utilities/post';
 import HorizontalBar from '../HorizontalBar';
 import Inline from '../Inline';
 import AddButton from '../AddButton';
 import ExerciseSet from './ExerciseSet';
+import { WorkoutExercise } from '../../pages/Workout/Session';
 
 interface ExerciseContent {
-    exercises: Exercise[];
+    exercises: WorkoutExercise[];
     handleAddSet: (index: number) => React.MouseEventHandler<HTMLButtonElement>;
     index: number;
     handleChangeReps: (setIndex: number) => React.ChangeEventHandler<HTMLInputElement>;
@@ -21,7 +21,14 @@ const ExerciseContent: React.FC<ExerciseContent> = ( { exercises, handleAddSet, 
             <p className='text-center mt-2 font-coffee text-xl'>{exercises[index].name}</p>
             <Inline className='font-coffee text-xs -mt-1'>
                 <p>Best:</p>
-                <p className='text-gray-400'>{'N/A'}</p>
+                <p className='text-gray-400'>
+                  {exercises[index].bestSet === undefined 
+                  || (exercises[index].bestSet.reps === 0 && exercises[index].bestSet.weightKG === 0)
+                  ?
+                  'N/A'
+                :
+                `${exercises[index].bestSet.weightKG} KG X ${exercises[index].bestSet.reps} REPS`} 
+                </p>
             </Inline>
         </div>
 
