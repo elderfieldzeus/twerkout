@@ -11,7 +11,7 @@
     A mobile-based website designed for logging and tracking of workout progress.
     <br />
     <br />
-    <a href="https://twerkout.vercel.app">View Demo</a>
+    <a href="https://twerkout.vercel.app">Visit Site</a>
   </p>
 </div>
 
