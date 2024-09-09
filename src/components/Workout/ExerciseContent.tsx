@@ -20,7 +20,7 @@ const ExerciseContent: React.FC<ExerciseContent> = ( { exercises, handleAddSet, 
         <div className='flex flex-col items-center'>
             <p className='text-center mt-2 font-coffee text-xl'>{exercises[index].name}</p>
             <Inline className='font-coffee text-xs -mt-1'>
-                <p>Best:</p>
+                <p>Best (Previous 10):</p>
                 <p className='text-gray-400'>
                   {exercises[index].bestSet === undefined 
                   || (exercises[index].bestSet.reps === 0)

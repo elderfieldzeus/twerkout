@@ -108,8 +108,8 @@ export async function getBestWeight(userId: string, splitId: string, exerciseNam
      const q = query(collection(database, "workouts"), 
                 where("userId", "==", userId),
                 where("splitId", "==", splitId),
-                orderBy("date"),
-                limit(5));
+                orderBy("date", "desc"),
+                limit(10));
 
       const docRef = await getDocs(q);
 
@@ -131,9 +131,10 @@ export async function getBestWeight(userId: string, splitId: string, exerciseNam
 
       exercises.forEach((exercise) => {
         exercise.sets.forEach((set) => {
+          console.log(set);
           if(
             (set.weightKG > bestSet.weightKG)
-            || (set.weightKG == bestSet.weightKG && set.reps > bestSet.weightKG)
+            || (set.weightKG === bestSet.weightKG && set.reps > bestSet.reps)
           ) {
             bestSet = set;
           }
