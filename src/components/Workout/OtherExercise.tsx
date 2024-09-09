@@ -13,7 +13,7 @@ const OtherExercise: React.FC<OtherExerciseProps> = ({ otherExercise, handleChan
     <div>
         <div className='flex flex-col items-center pb-1'>
             <input 
-                className='text-center mt-2 font-coffee text-xl focus:outline-gray-400'
+                className='text-center mt-2 font-coffee text-xl focus:outline-none'
                 placeholder='Exercise Name Here'
                 value = {otherExercise}
                 onChange={handleChangeOtherExercise}

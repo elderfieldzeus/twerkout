@@ -246,7 +246,7 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
     }
 
     const handleChangeOtherExercise: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-      const text = e.target.value;
+      const text = e.target.value.toUpperCase();
       if(text.length <= OTHER_EXERCISE_MAX) {
         setOtherExercise(text);
       }
