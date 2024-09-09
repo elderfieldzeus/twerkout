@@ -23,7 +23,7 @@ const ExerciseContent: React.FC<ExerciseContent> = ( { exercises, handleAddSet, 
                 <p>Best:</p>
                 <p className='text-gray-400'>
                   {exercises[index].bestSet === undefined 
-                  || (exercises[index].bestSet.reps === 0 && exercises[index].bestSet.weightKG === 0)
+                  || (exercises[index].bestSet.reps === 0)
                   ?
                   'N/A'
                 :

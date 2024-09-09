@@ -75,6 +75,7 @@ const Begin: React.FC<BeginProps> = ({ setColor }) => {
         }
       }
       catch(e) {
+        alert("Error: " + e);
         console.error(e);
       }
     }

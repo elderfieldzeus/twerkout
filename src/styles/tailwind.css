@@ -675,6 +675,10 @@ video {
   margin-top: -7.5rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -721,11 +725,6 @@ video {
   height: 3.5rem;
 }
 
-.size-2 {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-
 .size-20 {
   width: 5rem;
   height: 5rem;
@@ -744,6 +743,11 @@ video {
 .size-32 {
   width: 8rem;
   height: 8rem;
+}
+
+.size-4 {
+  width: 1rem;
+  height: 1rem;
 }
 
 .size-48 {
@@ -774,11 +778,6 @@ video {
 .size-8 {
   width: 2rem;
   height: 2rem;
-}
-
-.size-4 {
-  width: 1rem;
-  height: 1rem;
 }
 
 .h-0 {
@@ -1180,6 +1179,10 @@ video {
   padding-bottom: 4rem;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .pb-24 {
   padding-bottom: 6rem;
 }
@@ -1210,6 +1213,10 @@ video {
 
 .pt-6 {
   padding-top: 1.5rem;
+}
+
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .text-center {
@@ -1257,6 +1264,10 @@ video {
   font-size: 0.5rem;
 }
 
+.text-\[0\.6rem\] {
+  font-size: 0.6rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1270,10 +1281,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-\[0\.6rem\] {
-  font-size: 0.6rem;
 }
 
 .font-bold {
@@ -1406,6 +1413,19 @@ video {
   outline-color: #facc15;
 }
 
+.focus\:outline-black:focus {
+  outline-color: #000;
+}
+
+.focus\:outline-gray-400:focus {
+  outline-color: #9ca3af;
+}
+
+.active\:border-black:active {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
 .active\:bg-gray-100:active {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -1454,4 +1474,8 @@ video {
 .active\:text-yellow-600:active {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity));
+}
+
+.active\:outline-black:active {
+  outline-color: #000;
 }
