@@ -151,7 +151,11 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
       const handleUpdateNewExercise = async () => {
         try {
           if(otherExercise !== '' && workout) {
+            setSubLoading(true);
+            
             await addExercise(otherExercise, workout.id, workout.exercises);
+
+            setSubLoading(true);
             
             const newIndex = workout.exercises.length - 1;
             
@@ -168,7 +172,6 @@ const Session: React.FC<SessionProps> = ({ setColor }) => {
         }
       }
       
-      setSubLoading(true);
       handleUpdateNewExercise();
     }
 
